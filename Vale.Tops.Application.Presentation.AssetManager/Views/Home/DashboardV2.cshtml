@@ -1,0 +1,298 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.HomeViewModel
+@{
+    ViewBag.Title = "SISTEMA ASSET MANAGER";
+    ViewBag.SubTitle = "Dashboards";
+}
+
+@section Menu {
+    @Scripts.Render("~/Scripts/Home/DashboardV1/menu")
+}
+
+@Styles.Render("~/AdminLTE/plugins/morris/css")
+@Styles.Render("~/AdminLTE/plugins/jvectormap/css")
+@Styles.Render("~/AdminLTE/plugins/datepicker/css")
+@Styles.Render("~/AdminLTE/plugins/daterangepicker/css")
+@Styles.Render("~/AdminLTE/plugins/bootstrap-wysihtml5/css")
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">SGMud</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-wrench"></i>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-gray"><i class="fa fa-frown-o"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Alteração de Programa</span>
+                                <span class="info-box-number">@Html.DisplayFor(model => model.Change)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-gray"><i class="fa fa-thumbs-down"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Valor Escrito</span>
+                                <span class="info-box-number">@Html.DisplayFor(model => model.Value)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm-block"></div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-gray"><i class="fa fa-exclamation-triangle"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Tag Criada</span>
+                                <span class="info-box-number">@Html.DisplayFor(model => model.NewTag)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-gray"><i class="fa fa-globe"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Linha Deletada</span>
+                                <span class="info-box-number">@Html.DisplayFor(model => model.Delete)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center">
+                            <strong>Alteração de Programa</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="SGMudChangeProgram" width="600" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center">
+                            <strong>Valor Escrito</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="SGMudWriteTag" width="600" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center">
+                            <strong>Tag Criada</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="SGMudCreateTag" width="600" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center">
+                            <strong>Linha Deletada</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="SGMudRemoveRung" width="600" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center">
+                            <strong>Black List</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="SGMudBlackList" width="600" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="box-footer">
+
+                </div>*@
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/AdminLTE/plugins/jquery-ui/js")
+
+    @Scripts.Render("~/AdminLTE/plugins/chartjs/js")
+    @Scripts.Render("~/AdminLTE/plugins/jvectormap/js")
+    @Scripts.Render("~/AdminLTE/plugins/sparkline/js")
+
+
+    <script src="~/Scripts/Charts/Chart.js"></script>
+    <script src="~/Scripts/Charts/Common.js"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+        
+       
+        //----Donut Chart---------
+        var c = document.getElementById("SGMudChangeProgram");
+        var ctx = c.getContext("2d");
+        var tData = $.getValues("@Url.Action("SGMudChangeProgram", "Home")");
+        var myPieChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: tData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                },
+                animation: {
+                    onComplete: function () {
+                        var ctx = this.chart.ctx;
+                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+                        ctx.fillStyle = "black";
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function (dataset) {
+                            for (var i = 0; i < dataset.data.length; i++) {
+                                for (var key in dataset._meta) {
+                                    var model = dataset._meta[key].data[i]._model;
+                                    ctx.fillText(dataset.data[i], model.x, model.y);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        //----Donut Chart---------
+        var c = document.getElementById("SGMudWriteTag");
+        var ctx = c.getContext("2d");
+        var tData = $.getValues("@Url.Action("SGMudWriteTag", "Home")");
+        var myPieChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: tData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                },
+                animation: {
+                    onComplete: function () {
+                        var ctx = this.chart.ctx;
+                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+                        ctx.fillStyle = "black";
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function (dataset) {
+                            for (var i = 0; i < dataset.data.length; i++) {
+                                for (var key in dataset._meta) {
+                                    var model = dataset._meta[key].data[i]._model;
+                                    ctx.fillText(dataset.data[i], model.x, model.y);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        //----Donut Chart---------
+        var c = document.getElementById("SGMudCreateTag");
+        var ctx = c.getContext("2d");
+        var tData = $.getValues("@Url.Action("SGMudCreateTag", "Home")");
+        var myPieChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: tData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                },
+                animation: {
+                    onComplete: function () {
+                        var ctx = this.chart.ctx;
+                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+                        ctx.fillStyle = "black";
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function (dataset) {
+                            for (var i = 0; i < dataset.data.length; i++) {
+                                for (var key in dataset._meta) {
+                                    var model = dataset._meta[key].data[i]._model;
+                                    ctx.fillText(dataset.data[i], model.x, model.y);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        //----Donut Chart---------
+        var c = document.getElementById("SGMudRemoveRung");
+        var ctx = c.getContext("2d");
+        var tData = $.getValues("@Url.Action("SGMudRemoveRung", "Home")");
+        var myPieChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: tData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                },
+                animation: {
+                    onComplete: function () {
+                        var ctx = this.chart.ctx;
+                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+                        ctx.fillStyle = "black";
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function (dataset) {
+                            for (var i = 0; i < dataset.data.length; i++) {
+                                for (var key in dataset._meta) {
+                                    var model = dataset._meta[key].data[i]._model;
+                                    ctx.fillText(dataset.data[i], model.x, model.y);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    </script>
+
+}

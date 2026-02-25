@@ -1,0 +1,163 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.RouteViewModel
+
+@{
+    ViewBag.Title = "Rotas de Equipamentos";
+    ViewBag.SubTitle = "Cadastro de Rota";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="bootstrap-admin-panel-content">
+            <div class="row">
+                <a href="#" class="btn btn-link" onclick="jqFunctionPartialViewCreate('','Novo Registro' )">Novo Registro <i class="glyphicon glyphicon-new-window"></i> </a> |
+                <a class="btn btn-link" data-toggle="modal" data-target="#ModalSelected" onclick="jqFunctionSelected('Apagar Selecionados', 'Você tem certeza que deseja apagar os registros?' )">Apagar Selecionados <i class="glyphicon glyphicon-remove-sign"></i></a> |
+                <i class="fa fa-info-circle"></i> @Html.DisplayFor(model => model.lines) linha(s) retornada(s). | @ViewBag.Message
+            </div>
+            @{ Html.BeginForm("Index", "Log", FormMethod.Post, new { name = "tableForm" }); }
+            <table class="table table-striped table-condensed table-bordered panel panel-body">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dh)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Event)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User)
+                    </th>
+                    <th style="color:white">.........................................</th>
+                </tr>
+
+                @{int i = 0;}
+                @foreach (var item in Model.logs)
+                {
+                   
+            <tr class='text-center'>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Log.dh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Log.Message)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Log.User)
+                </td>
+            </tr>
+                    i++;
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalSelected" tabindex="-1" style="margin:5px 5px 5px 5px" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><label for="a" id="txtTitleSelected"></label></h5>
+                <button Location="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="a" id="txtBodySelected"></label>
+            </div>
+            <div class="modal-footer">
+                <div class="margin-bottom">
+                    <button Location="submit" class="btn btn-primary btn-sm" style="width:100px; ">Sim</button>
+                    <button Location="button" class="btn btn-primary btn-sm" style="width:100px" data-dismiss="modal">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{ Html.EndForm(); }
+<!-- Modal -->
+
+
+<div class="modal" id="myModal" style="margin:5px 5px 5px 5px" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><label for="a" id="txtTitlePartial"></label></h5>
+                <button Location="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script Location="text/javascript">
+
+    var jqFunctionPartialViewActivate = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Activate", "Route")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewDeactivate = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Deactivate", "Route")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewEdit = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Edit", "Route")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewCopy = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Copy", "Route")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewCreate = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Create", "Route")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionSelected = function (str_titulo, str_body, Id) {
+        $('#txtTitleSelected').html(str_titulo);
+        $('#txtBodySelected').html(str_body);
+        $('#myModalSelected').on('shown.bs.modal', function () {
+
+        })
+        $('#IdScript').val(Id);
+    }
+
+
+</script>
+

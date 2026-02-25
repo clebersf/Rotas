@@ -1,0 +1,32 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.RailRoadReportModel
+@{
+    /**/
+
+    ViewBag.Title = "Asset Manager";
+    ViewBag.SubTitle = "Dados de Produção Viradores de Vagões";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="divPartialView">@Html.Action("Tables", "RailRoadReport")</div>
+
+<script>
+    var i = 1;
+    window.onload = function () {        
+                var s = setInterval(function () {
+                    i++;                    
+                    if (i > 5) {
+                        i = 1;                        
+                    }
+                    if (i == 1) {
+                        $(function () {
+                            $("#divPartialView").load('@Url.Action("Tables")')
+                        });
+                    }    
+                    $('#counter').html(5 - i);
+                    var dt = new Date();
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                    $('#clock').html(time);
+                }, 1000)
+    }
+</script>

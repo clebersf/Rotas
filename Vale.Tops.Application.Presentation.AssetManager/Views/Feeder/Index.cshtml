@@ -1,0 +1,211 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.FeederViewModel
+
+@{
+    ViewBag.Title = "Especialização de Ativo";
+    ViewBag.SubTitle = "Cadastro de Alimentador Móvel (cabeça móvel)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ Html.BeginForm("Index", "Feeder", FormMethod.Post, new { name = "tableForm" }); }
+<div class="col-md-12">
+    <div class="row">
+        <div class="panel panel-body">
+
+            <hr />
+            <div class="bootstrap-admin-panel-content">
+                <div class="row">
+                    <a href="#" class="btn btn-link" onclick="jqFunctionPartialViewCreate('','Novo Registro' )">Novo Registro <i class="glyphicon glyphicon-new-window"></i> </a> |
+                    <a class="btn btn-link" data-toggle="modal" data-target="#ModalSelected" onclick="jqFunctionSelected('Apagar Selecionados', 'Você tem certeza que deseja apagar os registros?' )">Apagar Selecionados <i class="glyphicon glyphicon-remove-sign"></i></a> |
+                    <i class="fa fa-info-circle"></i> @Html.DisplayFor(model => model.lines) linha(s) retornada(s). | @ViewBag.Message
+                </div>
+
+                <table class="table" id="tTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>                    
+                            <th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th>
+                                Apagar
+                            </th>
+                            <th style="color:white">.........................................</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 0;}
+                        @foreach (var item in Model.Locations)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>              
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.CheckBoxFor(modelItem => Model.Selecteds[i].isSelected, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.HiddenFor(model => Model.Selecteds[i].id)
+                                </td>
+                                <td>
+                                     <a class="btn btn-link" data-toggle="modal" data-target="#ModalSelected" onclick="jqFunctionSelected('Apagar Registro', 'Você tem certeza que deseja apagar o registro?', @item.Id )">Apagar Registro <i class="glyphicon glyphicon-remove"></i></a>
+                                    @Html.HiddenFor(model => model.Id, new { @id = "IdScript" })
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModalSelected" tabindex="-1" style="margin:5px 5px 5px 5px" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><label for="a" id="txtTitleSelected"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="a" id="txtBodySelected"></label>
+            </div>
+            <div class="modal-footer">
+                <div class="margin-bottom">
+                    <button type="submit" class="btn btn-primary btn-sm" style="width:100px; ">Sim</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="width:100px" data-dismiss="modal">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@{ Html.EndForm(); }
+<!-- Modal -->
+
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><label for="a" id="txtTitlePartial"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv">
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+     window.onload = function () {
+
+        $(function () {
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+            }
+        });
+        $.validator.unobtrusive.parse("#frmClient form");
+
+        $('input[type=datetime]').datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            nextText: 'Proximo',
+            prevText: 'Anterior',
+            showOn: "button"
+        }).css("display", "inline-block")//.datepicker("setDate", new Date())
+            .next("button").button({
+                icons: { primary: "ui-icon-calendar" },
+                label: "",
+                text: false
+            });
+
+
+        var oTable = $("#tTable").DataTable({
+            "dom": 'Bfrtip',
+            "buttons": [
+                'copy', 'excel'
+            ],
+            "language": {
+                "lengthMenu": "Exibe _MENU_ Registros por página",
+                "search": "Procurar",
+                "paginate": { "previous": "Retorna", "next": "Avança" },
+                "zeroRecords": "Nada foi encontrado",
+                "info": "Exibindo página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sem registros",
+                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+            },
+            "order": [[1, "desc"]],
+            "processing": true, // mostrar a progress bar
+            //"serverSide": true, // processamento no servidor
+            "filter": true,     // habilita o filtro(search box)
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            "pageLength": 100,    // define o tamanho da página
+        });
+    }
+    var jqFunctionPartialViewEdit = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Edit", "Feeder")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewCreate = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Create", "Feeder")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewCopy = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Copy", "Feeder")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+
+    var jqFunctionSelected = function (str_titulo, str_body, Id) {
+        $('#txtTitleSelected').html(str_titulo);
+        $('#txtBodySelected').html(str_body);
+        $('#myModalSelected').on('shown.bs.modal', function () {
+
+        })
+        $('#IdScript').val(Id);
+    }
+
+
+</script>
+

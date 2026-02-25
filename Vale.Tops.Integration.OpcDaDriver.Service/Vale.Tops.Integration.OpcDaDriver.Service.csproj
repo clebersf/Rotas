@@ -1,0 +1,45 @@
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Vale.Tops.Integration.OpcDaDriver.Service</RootNamespace>
+    <AssemblyName>Vale.Tops.Integration.OpcDaDriver.Service</AssemblyName>
+    <Platforms>x86</Platforms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Prefer32Bit>true</Prefer32Bit>
+    <StartupObject>Vale.Tops.Integration.OpcDaDriver.Service.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>00020430-0000-0000-c000-000000000046</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="OPCAutomation">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>28e68f91-8d75-11d1-8dc3-3c302a000000</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vale.Tops.Domain\Vale.Tops.Domain.csproj" />
+    <ProjectReference Include="..\Vale.Tops.Integration.Infrastructure.DataBase\Vale.Tops.Integration.Infrastructure.DataBase.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <!-- Adicione a referência COM 'OPC Automation 2.0' (OPCAutomation) manualmente após abrir a solução
+       e defina Embed Interop Types = False -->
+</Project>

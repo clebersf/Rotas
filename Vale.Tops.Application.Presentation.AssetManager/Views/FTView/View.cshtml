@@ -1,0 +1,141 @@
+﻿@model IEnumerable<Vale.Tops.Application.Presentation.AssetManager.Models.EventFtvViewModel>
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Filter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SequenceNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChainTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStmp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MessageText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Audience)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Severity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Verbosity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Provider)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserFullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dhpi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dhpf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ViewMessage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lines)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Filter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SequenceNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChainTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeStmp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessageText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Audience)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Severity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Verbosity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Provider)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserFullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dhpi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dhpf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ViewMessage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lines)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

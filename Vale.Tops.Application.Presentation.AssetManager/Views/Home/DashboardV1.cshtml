@@ -1,0 +1,328 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.HomeViewModel
+@{
+    ViewBag.Title = "SISTEMA ASSET MANAGER";
+    ViewBag.SubTitle = "Dashboards";
+}
+
+@section Menu {
+    @Scripts.Render("~/Scripts/Home/DashboardV1/menu")
+}
+
+@Styles.Render("~/AdminLTE/plugins/morris/css")
+@Styles.Render("~/AdminLTE/plugins/jvectormap/css")
+@Styles.Render("~/AdminLTE/plugins/datepicker/css")
+@Styles.Render("~/AdminLTE/plugins/daterangepicker/css")
+@Styles.Render("~/AdminLTE/plugins/bootstrap-wysihtml5/css")
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">SGForce</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-wrench"></i>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-gray"><i class="fa fa-frown-o"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Criticidade 0</span>
+                                <span class="info-box-number">@Html.DisplayFor(model => model.Criticality0)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-gray"><i class="fa fa-thumbs-down"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Criticidade 1</span>
+                                <span class="info-box-number">@Html.DisplayFor(model => model.Criticality1)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm-block"></div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-gray"><i class="fa fa-exclamation-triangle"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Não autorizado</span>
+                                <span class="info-box-number">@Html.DisplayFor(model => model.NotAuthorized)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-gray"><i class="fa fa-globe"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total</span>
+                                <span class="info-box-number">@Html.DisplayFor(model => model.Total)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-center">
+                            <strong>Historico Criticidade 0 e 1</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="SGForceHistorical01" width="400" height="150"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-center">
+                            <strong>Supervisão Criticidade 0 e 1</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="SGForceReq01" width="400" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-center">
+                            <strong>Supervisão Criticidade 2</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="SGForceReq2" width="400" height="150"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-center">
+                            <strong>Supervisão Criticidade 3</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="SGForceReq3" width="400" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-center">
+                            <strong>Top 10 Não Autorizado</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="SGForceTop10NA" width="400" height="150"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-center">
+                            <strong>Ultimos 10 forces não autorizados </strong>
+                        </p>
+                        <div class="chart">
+                            <div class="table-responsive" style="font-size:x-small">
+                                <table class="table no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Usuário</th>
+                                            <th>CPU</th>
+                                            <th>Endereço</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Forces)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.dh)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.User)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.Resource)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+            @*<div class="box-footer">
+
+            </div>*@
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/AdminLTE/plugins/jquery-ui/js")
+
+    @Scripts.Render("~/AdminLTE/plugins/chartjs/js")
+    @Scripts.Render("~/AdminLTE/plugins/jvectormap/js")
+    @Scripts.Render("~/AdminLTE/plugins/sparkline/js")
+
+
+    <script src="~/Scripts/Charts/Chart.js"></script>
+    <script src="~/Scripts/Charts/Common.js"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+        //-----Single Bar --------------
+        var c = document.getElementById("SGForceReq01");
+        var ctx = c.getContext("2d");
+        var tData = $.getValues("@Url.Action("SGForceReq01", "Home")");
+        var myBarChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: tData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                },
+                animation: {
+                    onComplete: function () {
+                        var ctx = this.chart.ctx;
+                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+                        ctx.fillStyle = "black";
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function (dataset) {
+                            for (var i = 0; i < dataset.data.length; i++) {
+                                for (var key in dataset._meta) {
+                                    var model = dataset._meta[key].data[i]._model;
+                                    ctx.fillText(dataset.data[i], model.x, model.y - 5);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        //----Multi Line Chart---------
+        var c = document.getElementById("SGForceHistorical01");
+        var ctx = c.getContext("2d");
+        var tData = $.getValues("@Url.Action("SGForceHistorical01", "Home")");
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: tData,            
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                },
+                animation: {
+                    onComplete: function () {
+                        var ctx = this.chart.ctx;
+                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+                        ctx.fillStyle = "black";
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function (dataset) {
+                            for (var i = 0; i < dataset.data.length; i++) {
+                                for (var key in dataset._meta) {
+                                    var model = dataset._meta[key].data[i]._model;
+                                    ctx.fillText(dataset.data[i], model.x, model.y - 5);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        //-----Single Bar --------------
+        var c = document.getElementById("SGForceTop10NA");
+        var ctx = c.getContext("2d");
+        var tData = $.getValues("@Url.Action("SGForceTop10NA", "Home")");
+        var myBarChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: tData,
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                },
+                animation: {
+                    onComplete: function () {
+                        var ctx = this.chart.ctx;
+                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+                        ctx.fillStyle = "black";
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function (dataset) {
+                            for (var i = 0; i < dataset.data.length; i++) {
+                                for (var key in dataset._meta) {
+                                    var model = dataset._meta[key].data[i]._model;
+                                    ctx.fillText(dataset.data[i], model.x, model.y - 5);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        //----Donut Chart---------
+        var c = document.getElementById("SGForceReq2");
+        var ctx = c.getContext("2d");
+        var tData = $.getValues("@Url.Action("SGForceReq2", "Home")");
+        var myPieChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: tData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                },
+                animation: {
+                    onComplete: function () {
+                        var ctx = this.chart.ctx;
+                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+                        ctx.fillStyle = "black";
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function (dataset) {
+                            for (var i = 0; i < dataset.data.length; i++) {
+                                for (var key in dataset._meta) {
+                                    var model = dataset._meta[key].data[i]._model;
+                                    ctx.fillText(dataset.data[i], model.x, model.y);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        //----Donut Chart---------
+        var c = document.getElementById("SGForceReq3");
+        var ctx = c.getContext("2d");
+        var tData = $.getValues("@Url.Action("SGForceReq3", "Home")");
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: tData,            
+        });
+
+    </script>
+
+}

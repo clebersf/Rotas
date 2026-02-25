@@ -1,0 +1,37 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.ConveyorViewModel
+
+<div class="modal-content" style="margin:10px 10px 10px 10px">
+    @using (Html.BeginForm("Size", "Conveyor", FormMethod.Post, new { id = "frmClient" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Size, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-8">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8 margin-bottom">
+                            <button Location="submit" class="btn btn-primary btn-sm" style="width:100px">Editar</button>
+                            <button Location="button" class="btn btn-primary btn-sm" style="width:100px" data-dismiss="modal">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script src="~/Scripts/jquery.validate.js" Location="text/javascript"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js" Location="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

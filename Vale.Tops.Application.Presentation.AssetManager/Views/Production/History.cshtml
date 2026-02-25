@@ -1,0 +1,197 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.ProductionViewModel
+
+@{
+    ViewBag.Title = "Produção";
+    ViewBag.SubTitle = "Historico Produção de embarque";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.HiddenFor(model => model.dhpi)
+@Html.HiddenFor(model => model.dhpf)
+
+@using (Html.BeginForm("History", "Production", FormMethod.Post, new { id = "frmClient" }))
+{
+    <hr />
+
+    <div class="form-row">
+        <div class="form-group">
+            @Html.LabelFor(model => model.dhpi, htmlAttributes: new { @class = "control-label col-sm-1" })
+            <div class="col-sm-2">
+                @Html.EditorFor(model => model.dhpi, new { htmlAttributes = new { @class = "form-control", id = "idData1" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dhpf, htmlAttributes: new { @class = "control-label col-sm-1" })
+            <div class="col-sm-2">
+                @Html.EditorFor(model => model.dhpf, new { htmlAttributes = new { @class = "form-control", id = "idData2" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary btn-sm" style="width:100px">Pesquisar</button>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <table id="tTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.dhi)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.dhf)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.Berth)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.Destination)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.Compartment)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.Load)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.VVG1)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.VVG2)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.VVG3)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.ERG1)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.ERG2)
+                </th>
+                <th class="text-center" style="background-color:lightblue">
+                    @Html.DisplayNameFor(model => model.ERG3)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.ProductionBoardingPresentations != null)
+            {
+                foreach (var item in Model.ProductionBoardingPresentations)
+                {
+            <tr>
+                <td class='text-center '>
+                    @Html.DisplayFor(modelItem => item.Cod)
+                </td>
+                <td class='text-center '>
+                    @Html.DisplayFor(modelItem => item.dhi)
+                </td>
+                <td class='text-center '>
+                    @Html.DisplayFor(modelItem => item.dhf)
+                </td>
+                <td class='text-center '>
+                    @Html.DisplayFor(modelItem => item.Berth)
+                </td>
+                <td class='text-center '>
+                    @Html.DisplayFor(modelItem => item.Destination)
+                </td>
+                <td class='text-center '>
+                    @Html.DisplayFor(modelItem => item.Compartment)
+                </td>
+                <td class='text-center '>
+                    @Html.DisplayFor(modelItem => item.Load)
+                </td>
+                <td id="VV01" class='text-center @(item.VVG1 > 0 ? "warning-gray" : "")'>
+                    @Html.DisplayFor(modelItem => item.VVG1)
+                </td>
+                <td id="VV01" class='text-center @(item.VVG2 > 0 ? "warning-gray" : "")'>
+                    @Html.DisplayFor(modelItem => item.VVG2)
+                </td>
+                <td id="VV01" class='text-center @(item.VVG3 > 0 ? "warning-gray" : "")'>
+                    @Html.DisplayFor(modelItem => item.VVG3)
+                </td>
+                <td id="VV01" class='text-center @(item.ERG1 > 0 ? "warning-gray" : "")'>
+                    @Html.DisplayFor(modelItem => item.ERG1)
+                </td>
+                <td id="VV01" class='text-center @(item.ERG2 > 0 ? "warning-gray" : "")'>
+                    @Html.DisplayFor(modelItem => item.ERG2)
+                </td>
+                <td id="VV01" class='text-center @(item.ERG3 > 0 ? "warning-gray" : "")'>
+                    @Html.DisplayFor(modelItem => item.ERG3)
+                </td>
+            </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+}
+    <script type="text/javascript" language="javascript">
+
+    window.onload = function () {
+        $(document).ready(function () {
+    $("#divCarregando").show();
+    $(window).load(function () {
+        // Quando a página estiver totalmente carregada, remove o id
+        $('#divCarregando').fadeOut('slow');
+    });
+});
+        $(function () {
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+            }
+        });
+        $.validator.unobtrusive.parse("#frmClient form");
+
+        $('input[type=datetime]').datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            nextText: 'Proximo',
+            prevText: 'Anterior',
+            showOn: "button"
+        }).css("display", "inline-block")//.datepicker("setDate", new Date())
+            .next("button").button({
+                icons: { primary: "ui-icon-calendar" },
+                label: "",
+                text: false
+            });
+
+
+        var oTable = $("#tTable").DataTable({
+            "dom": 'Bfrtip',
+            "buttons": [
+                'copy', 'excel'
+            ],
+            "language": {
+                "lengthMenu": "Exibe _MENU_ Registros por página",
+                "search": "Procurar",
+                "paginate": { "previous": "Retorna", "next": "Avança" },
+                "zeroRecords": "Nada foi encontrado",
+                "info": "Exibindo página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sem registros",
+                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+            },
+            "order": [[0, "desc"]],
+            "processing": true, // mostrar a progress bar
+            //"serverSide": true, // processamento no servidor
+            "filter": true,     // habilita o filtro(search box)
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            "pageLength": -1,    // define o tamanho da página
+        });
+    }
+
+  
+ 
+
+    </script>
+

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Vale.Tops.Web.Mvc.ViewModels.ActiveRouteViewModel>
+
+@{
+    ViewBag.Title = "Rotas Ativas";
+}
+
+<h2>Rotas Ativas</h2>
+
+<p>
+    Esta lista exibe todas as rotas ativas, filtradas usando a relação com a tabela 'rRouteActive'.
+</p>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivationDate)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActivationDate)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        Nenhuma rota ativa encontrada no momento.
+    </div>
+}

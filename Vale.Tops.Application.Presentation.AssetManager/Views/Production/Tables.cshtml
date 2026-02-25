@@ -1,0 +1,101 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.ProductionViewModel
+
+
+<table id="tTable1" class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.dhi)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.dhf)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.Berth)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.Compartment)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.Load)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.VVG1)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.VVG2)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.VVG3)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.ERG1)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.ERG2)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.ERG3)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.vwProductionBoardingPresentations != null)
+        {
+            foreach (var item in Model.vwProductionBoardingPresentations)
+            {
+        <tr>
+            <td class='text-center '>
+                @Html.DisplayFor(modelItem => item.dhi)
+            </td>
+            <td class='text-center '>
+                @Html.DisplayFor(modelItem => item.dhf)
+            </td>
+            <td class='text-center '>
+                @Html.DisplayFor(modelItem => item.Berth)
+            </td>
+            <td class='text-center '>
+                @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td class='text-center '>
+                @Html.DisplayFor(modelItem => item.Compartment)
+            </td>
+            <td class='text-center '>
+                @Html.DisplayFor(modelItem => item.Load)
+            </td>
+            <td id="VV01" class='text-center @(item.VVG1 > 0 ? "warning-gray" : "")'>
+                @Html.DisplayFor(modelItem => item.VVG1)
+            </td>
+            <td id="VV01" class='text-center @(item.VVG2 > 0 ? "warning-gray" : "")'>
+                @Html.DisplayFor(modelItem => item.VVG2)
+            </td>
+            <td id="VV01" class='text-center @(item.VVG3 > 0 ? "warning-gray" : "")'>
+                @Html.DisplayFor(modelItem => item.VVG3)
+            </td>
+            <td id="VV01" class='text-center @(item.ERG1 > 0 ? "warning-gray" : "")'>
+                @Html.DisplayFor(modelItem => item.ERG1)
+            </td>
+            <td id="VV01" class='text-center @(item.ERG2 > 0 ? "warning-gray" : "")'>
+                @Html.DisplayFor(modelItem => item.ERG2)
+            </td>
+            <td id="VV01" class='text-center @(item.ERG3 > 0 ? "warning-gray" : "")'>
+                @Html.DisplayFor(modelItem => item.ERG3)
+            </td>
+        </tr>
+
+            }
+        }
+    </tbody>
+</table>
+
+<div id="divCont" class="row">
+    <div class="col-xs-12">
+        <p class="text-help">Atualizando em <span id="counter">4</span></p>
+    </div>
+</div>
+<div class="row text-right">
+    <a id="expandScreen" class="btn" href="#"><i style="color:black;" class="fa fa-compress fa-2x"></i></a>
+</div>

@@ -1,0 +1,441 @@
+﻿@model IEnumerable<Vale.Tops.Application.Presentation.AssetManager.Models.LogbookEPEEViewModel>
+
+@{
+    ViewBag.Title = "modelo";
+}
+
+<h2>modelo</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Action)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isChange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Yes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Area)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LandmarkInitial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LandmarkFinal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Material)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Landmark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dhpi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dhpf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lines)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IndexPage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Origem1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Matricula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Material1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Fechamento_de_Pilha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Numero_Lote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Quantidade_Vagoes1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Prefixo_Lote1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Passadas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Baliza_Inicial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Baliza_Final)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Baliza_Inicial_Lote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Baliza_Final_Lote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Baliza_Inicial_Lote_Direcao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Baliza_Final_Lote_Direcao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Hora_Inicial1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Minuto_Inicial1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Hora_Final1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Minuto_Final1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Paralisacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Observacao_Paralisacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Observacao_Taxa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Tremonha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Qualidade_Material_Ok)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Rota_Restrita_Ok)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Codigo_Operacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Area)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Empilhamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Insumo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Hora_Comunicacao_P0)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Minuto_Comunicacao_P0)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Hora_Acoplado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Minuto_Acoplado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Hora_Rodou_Usina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Minuto_Rodou_Usina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Material2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Origem2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Taxa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Qualidade_Material_Nok)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Rota_Restrita_Nok)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Prefixo_Lote2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Quantidade_Vagoes2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Hora_Inicial2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Minuto_Inicial2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Hora_Final2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.In_Diario_Minuto_Final2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Asset)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Action)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isChange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Yes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Area)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LandmarkInitial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LandmarkFinal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Material)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Landmark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dhpi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dhpf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Message)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lines)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IndexPage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Origem1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Matricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Material1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Fechamento_de_Pilha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Numero_Lote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Quantidade_Vagoes1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Prefixo_Lote1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Passadas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Baliza_Inicial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Baliza_Final)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Baliza_Inicial_Lote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Baliza_Final_Lote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Baliza_Inicial_Lote_Direcao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Baliza_Final_Lote_Direcao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Hora_Inicial1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Minuto_Inicial1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Hora_Final1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Minuto_Final1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Paralisacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Observacao_Paralisacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Observacao_Taxa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Tremonha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Qualidade_Material_Ok)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Rota_Restrita_Ok)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Codigo_Operacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Area)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Empilhamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Insumo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Hora_Comunicacao_P0)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Minuto_Comunicacao_P0)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Hora_Acoplado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Minuto_Acoplado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Hora_Rodou_Usina)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Minuto_Rodou_Usina)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Material2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Origem2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Taxa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Qualidade_Material_Nok)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Rota_Restrita_Nok)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Prefixo_Lote2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Quantidade_Vagoes2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Hora_Inicial2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Minuto_Inicial2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Hora_Final2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.In_Diario_Minuto_Final2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Asset)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

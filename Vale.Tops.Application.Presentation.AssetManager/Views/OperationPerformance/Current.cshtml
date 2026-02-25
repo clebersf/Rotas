@@ -1,0 +1,166 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.OperationPerformanceViewModel
+
+<div class="row">
+    <div class="col-sm-8"><h3 class="text-left">Tempo Real</h3></div>
+    <div class="col-sm-4"><h4 class="text-right" id="clock">Atualizando...</h4></div>
+</div>
+@using (Html.BeginForm("Current", "OperationPerformance", FormMethod.Post, new { id = "frmClient" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-md-12">
+        <div class="row">
+            <div class="panel panel-body">
+                <div class="bootstrap-admin-panel-content">
+
+                    
+                    <div class="row">
+                        | <i class="fa fa-info-circle"></i> @Html.DisplayFor(model => model.lines) linha(s) retornada(s). | @ViewBag.Message
+                    </div>
+                    <div id="dvScroll" style="overflow: scroll;overflow-x: scroll;">
+                        <table class="table table-striped table-condensed table-bordered table-responsive-md panel panel-body" id="tTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Inicio)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Berco)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Destino)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Porao)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TotalDestino)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.txEfetivaDestino10Min)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.txEfetivaDestino)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Origem)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TotalOrigem)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.txEfetivaOrigem10Min)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.txEfetivaOrigem)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.QtdPeak)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TimePeak)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.txPeak)
+                                    </th>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.txL2)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.txL3)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.txL4)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.txL5)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.txL6)
+                                    </th>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Operator)
+                                    </th>
+
+</thead>
+                            <tbody>
+                                @{int i = 0;}
+                                @foreach (var item in Model.EffectiveRates)
+                                {
+                                <tr>
+                                    <td style="width:5px">
+                                        @Html.DisplayFor(modelItem => item.Inicio)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.Berco)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.Destino)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.Porao)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.TotalDestino)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.txEfetivaDestino10Min)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.txEfetivaDestino)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.Origem)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.TotalOrigem)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.txEfetivaOrigem10Min)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.txEfetivaOrigem)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.QtdPeak)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.TimePeak)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.txPeak)
+                                    </td>
+
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.txL2)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.txL3)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.txL4)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.txL5)
+                                    </td>
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.txL6)
+                                    </td>
+
+                                    <td style="width:10px">
+                                        @Html.DisplayFor(modelItem => item.Operator)
+                                    </td>
+                                </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@{ Html.EndForm(); }

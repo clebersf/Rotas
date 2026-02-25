@@ -1,0 +1,48 @@
+﻿@model List<Vale.Tops.Application.Presentation.Diagnosis.ViewModels.RouteTagCommandViewModel>
+
+@{
+    ViewBag.Title = "Permissões de Tags da Rota";
+}
+
+<h2>Permissões de Tags da Rota - DAMPER, FEEDER, REVERSAL, TRIPPER</h2>
+
+<p>Esta tela exibe o status de permissão (tags booleanas no PLC) para acionamento dos equipamentos em cada rota.</p>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID Rota</th>
+            <th>Rota</th>
+            <th>Tipo Equipamento</th>
+            <th>Equipamento (Asset)</th>
+            <th>Tag de Permissão</th>
+            <th>Status</th>
+            <th>Permitido?</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            // Usa classes CSS para destacar se a permissão é concedida (verde) ou negada (vermelho)
+            var rowClass = item.IsPermitted ? "success" : "danger";
+            <tr class="@rowClass">
+                <td>@item.Id</td>
+                <td><strong>@item.Route</strong></td>
+                <td>@item.EquipmentType</td>
+                <td>@item.Asset</td>
+                <td>@item.TagName</td>
+                <td>@item.CommandStatus</td>
+                <td>
+                    @if (item.IsPermitted)
+                    {
+                        <span class="label label-success">✅ SIM (1)</span>
+                    }
+                    else
+                    {
+                        <span class="label label-danger">❌ NÃO (0)</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

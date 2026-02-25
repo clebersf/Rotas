@@ -1,0 +1,67 @@
+<Window x:Class="Vale.Tops.Integration.OpcDaDriver.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OPC DA Test Console" Width="1100" Height="700" WindowStartupLocation="CenterScreen">
+  <Grid Margin="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="2*"/>
+    </Grid.RowDefinitions>
+
+    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+      <Button x:Name="BtnStart" Content="Iniciar" Width="100" Click="BtnStart_Click" Margin="0,0,8,0"/>
+      <Button x:Name="BtnStop"  Content="Parar"   Width="100" Click="BtnStop_Click"  IsEnabled="False"/>
+      <TextBlock Text="Status:" Margin="20,0,4,0" VerticalAlignment="Center"/>
+      <TextBlock x:Name="TxtStatus" VerticalAlignment="Center" FontWeight="Bold"/>
+    </StackPanel>
+
+    <GroupBox Header="Configuração OPC" Grid.Row="1" Margin="0,0,0,8">
+      <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="250"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="200"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="120"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="120"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="ProgID:" VerticalAlignment="Center"/>
+        <TextBox x:Name="TxtProgId" Grid.Column="1" IsReadOnly="True" Margin="6,0"/>
+        <TextBlock Text="Host:" Grid.Column="2" Margin="12,0,0,0" VerticalAlignment="Center"/>
+        <TextBox x:Name="TxtHost" Grid.Column="3" IsReadOnly="True" Margin="6,0"/>
+        <TextBlock Text="Topic:" Grid.Column="4" Margin="12,0,0,0" VerticalAlignment="Center"/>
+        <TextBox x:Name="TxtTopic" Grid.Column="5" IsReadOnly="True" Margin="6,0"/>
+        <TextBlock Text="UpdateRate(ms):" Grid.Column="6" Margin="12,0,0,0" VerticalAlignment="Center"/>
+        <TextBox x:Name="TxtRate" Grid.Column="7" IsReadOnly="True" Margin="6,0"/>
+      </Grid>
+    </GroupBox>
+
+    <GroupBox Header="Tags do PLC" Grid.Row="2">
+      <DataGrid x:Name="GridTags" AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="8">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="TagId" Binding="{Binding TagId}" Width="80" IsReadOnly="True"/>
+          <DataGridTextColumn Header="TagName" Binding="{Binding TagName}" Width="2*"/>
+          <DataGridTextColumn Header="Valor Atual" Binding="{Binding CurrentValue}" Width="120" IsReadOnly="True"/>
+          <DataGridTextColumn Header="Horário" Binding="{Binding LastTimestamp}" Width="160" IsReadOnly="True" />
+          <DataGridTextColumn Header="Novo Valor" Binding="{Binding NewValue}" Width="120"/>
+          <DataGridTemplateColumn Header="Ações" Width="110">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <Button Content="Escrever" Width="90" Click="BtnWrite_Click" Tag="{Binding}"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+    </GroupBox>
+
+    <GroupBox Header="Logs" Grid.Row="3" Margin="0,8,0,0">
+      <TextBox x:Name="TxtLog" Margin="8" FontFamily="Consolas" FontSize="12"
+               IsReadOnly="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+    </GroupBox>
+  </Grid>
+</Window>

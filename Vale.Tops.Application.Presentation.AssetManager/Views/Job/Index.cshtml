@@ -1,0 +1,282 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.JobViewModel
+@{
+    ViewBag.Title = "Manutenção";
+    ViewBag.SubTitle = "Gestão de Serviços";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- /.row -->
+<!-- Button trigger modal -->
+@Html.HiddenFor(model => model.MaintenanceId)
+<div class="col-md-12">
+    <div class="row">
+        @{ Html.BeginForm("Index", "Job", FormMethod.Post, new { name = "tableForm" }); }
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="text-muted bootstrap-admin-box-title">Serviços da Parada de Manutenção</div>
+            </div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.dhi_prev)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dhi_prev)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.dhf_prev)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dhf_prev)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DescriptionMan)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DescriptionMan)
+                </dd>
+
+                @*<dt>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Location)
+                    </dd>*@
+
+            </dl>
+            @*<div class="form-horizontal">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NameRule, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.RuleId, new SelectList(Model.Teams.OrderBy(e => e.Description), "Id", "Description"), new { style = "font-size:100%;" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-6">
+                            <button type="submit" class="btn btn-secondary">Filtrar</button>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+
+
+
+
+        <div class="bootstrap-admin-panel-content">
+            <div class="row">
+                <a href="#" class="btn btn-link" onclick="jqFunctionPartialViewCreate('@Model.MaintenanceId','Novo Registro' )">Novo Registro <i class="glyphicon glyphicon-new-window"></i> </a> |
+                <a href="#" class="btn btn-link" onclick="jqFunctionPartialViewTeam('@Model.MaintenanceId','Equipes da Parada' )">Equipes da Parada <i class="glyphicon glyphicon-new-window"></i> </a> |
+                <i class="fa fa-info-circle"></i> @Html.DisplayFor(model => model.lines) linha(s) retornada(s). | @ViewBag.Message
+            </div>
+            @Html.AntiForgeryToken()
+            <table class="table table-striped table-condensed table-bordered panel panel-body">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NameRule)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.NameLocation)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Front)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Equipment)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.dhi_prev)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.dhf_prev)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.Dangerous)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Completed)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Initiated)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.OM)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Note)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Equipment)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        @*<th>
+                                Apagar
+                            </th>*@
+                        <th style="color:white">.........................................</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 0;}
+                    @foreach (var item in Model.Jobs)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Order)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rule.Description)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => Model.NameLocations[i])
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Front)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Equipment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dhi_Prev)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dhf_Prev)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.Dangerous)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Completed)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Initiated)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OM)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Note)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Equipment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            @*<td>
+                                    @Html.CheckBoxFor(modelItem => Model.Selecteds[i].isSelected, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.HiddenFor(model => Model.Selecteds[i].id)
+                                </td>*@
+                            <td>
+                                <a href="#" class="btn btn-link" onclick="jqFunctionPartialViewEdit('@item.Id','Editar Registro' )">Editar<i class="glyphicon glyphicon-edit"></i> </a> |
+                                <a class="btn btn-link" data-toggle="modal" data-target="#ModalSelected" onclick="jqFunctionSelected('Apagar Registro', 'Você tem certeza que deseja apagar o registro?', '@item.Id' )">Apagar<i class="glyphicon glyphicon-remove"></i></a>
+                                @Html.HiddenFor(model => model.Id, new { @id = "IdScript" })
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalSelected" tabindex="-1" style="margin:5px 5px 5px 5px" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><label for="a" id="txtTitleSelected"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="a" id="txtBodySelected"></label>
+            </div>
+            <div class="modal-footer">
+                <div class="margin-bottom">
+                    <button type="submit" class="btn btn-primary btn-sm" style="width:100px; ">Sim</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="width:100px" data-dismiss="modal">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.HiddenFor(model => Model.MaintenanceId)
+@{ Html.EndForm(); }
+<!-- Modal -->
+
+
+<div class="modal" id="myModal" style="margin:5px 5px 5px 5px" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><label for="a" id="txtTitlePartial"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var jqFunctionPartialViewEdit = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Edit", "Job")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewCopy = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Copy", "Job")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewCreate = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Create", "Job")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewTeam = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Team", "Job")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionSelected = function (str_titulo, str_body, Id) {
+        $('#txtTitleSelected').html(str_titulo);
+        $('#txtBodySelected').html(str_body);
+        $('#myModalSelected').on('shown.bs.modal', function () {
+
+        })
+        $('#IdScript').val(Id);
+    }
+
+</script>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Vale.Tops.Application.Presentation.Diagnosis.ViewModels.RouteEquipmentConsistencyViewModel>
+
+@{
+    ViewBag.Title = "Todas as Inconsistências por Equipamento na Rota";
+}
+
+<h2>Todas as Inconsistências por Equipamento na Rota</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+else
+{
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.RouteName)</th>
+                <th>@Html.DisplayNameFor(model => model.AssetCurrentName)</th>
+                <th>@Html.DisplayNameFor(model => model.AssetNextName)</th>
+                <th>@Html.DisplayNameFor(model => model.InconsistencyType)</th>
+                <th>@Html.DisplayNameFor(model => model.VeredictDescription)</th>
+                <th>@Html.DisplayNameFor(model => model.TagName)</th>
+                <th>Valor Detalhe</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.RouteName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.AssetCurrentName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.AssetNextName)</td>
+                    <td>
+                        <strong>@Html.DisplayFor(modelItem => item.InconsistencyType)</strong>
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.VeredictDescription)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TagName)</td>
+                    <td>
+                        @if (item.InconsistencyType == "TRIPPER")
+                        {
+                            // Exibe valor atual do Tripper e modo
+                            <span>@item.TripperCurrentValue (Modo: @item.DescriptionMode)</span>
+                        }
+                        else if (item.InconsistencyType == "DAMPER" || item.InconsistencyType == "FEEDER" || item.InconsistencyType == "REVERSAL")
+                        {
+                            // Exibe o valor da tag para as demais
+                            <span>@item.TagValue (Ref. ID: @item.ReferenceId)</span>
+                        }
+                        else
+                        {
+                            <span>N/A</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

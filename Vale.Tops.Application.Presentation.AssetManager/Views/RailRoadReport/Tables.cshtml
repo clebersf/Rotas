@@ -1,0 +1,218 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.RailRoadReportModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="row">
+    <div class="col-sm-8"><h3 class="text-left">Tempo Real</h3></div>
+    <div class="col-sm-4"><h4 class="text-right" id="clock">Atualizando...</h4></div>
+</div>
+
+<table id="tTable1" class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hEntreLotes)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hLivrar)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hPreparar)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hRolar)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hDuracaoRolar)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hi)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.NVagao)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.NDescarregado)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.NCheio)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hPrevTermino)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hf)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hDuracaoRetirar)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ReportLines != null)
+        {
+            foreach (var item in Model.ReportLines)
+            {
+                <tr>
+                    <td class='text-center '>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td id="@(item.Nome + "Status")"
+                        class='text-center
+                        @(item.Status == "Parado" ? "warning-gray" : "")
+                        @(item.Status == "Desconhecido" ? "warning-black" : "")
+                        @(item.Status == "Manutenção" ? "warning-red" : "")
+                        @(item.Status == "Entre Lotes" ? "warning-blue" : "")
+                        @(item.Status == "Operando" ? "warning-green" : "")
+                        @(item.Status == "Primeiro Posicionamento" || item.Status == "Fim de descarga" || item.Status == "Último Posicionamento" ? "warning-yellow" : "")'>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td id="@(item.Nome + "hEntreLotes")" class='text-center @(item.CorEntreLotes == 1 ? "warning-time-red" : "")'>
+                        @Html.DisplayFor(modelItem => item.hEntreLotes)
+                    </td>
+                    <td id="@(  item.Nome + "hLivrar")" class='text-center'>
+                        @Html.DisplayFor(modelItem => item.hLivrar)
+                    </td>
+                    <td id="@(item.Nome + "hPreparar")" class='text-center @(item.CorDuracaoRolar == 1 ? "warning-time-red" : "")'>
+                        @Html.DisplayFor(modelItem => item.hPreparar)
+                    </td>
+                    <td id="@(item.Nome + "hRolar")" class='text-center'>
+                        @Html.DisplayFor(modelItem => item.hRolar)
+                    </td>
+                    <td id="@(item.Nome + "hDuracaoRolar")" class='text-center'>
+                        @Html.DisplayFor(modelItem => item.hDuracaoRolar)
+                    </td>
+                    <td id="@(item.Nome + "hi")" class='text-center '>
+                        @item.hi
+                    </td>
+                    <td id="@(item.Nome + "NVagao")" class='text-center '>
+                        @if (item.Status != "Entre Lotes")
+                        {
+                            @Html.DisplayFor(modelItem => item.NVagao)
+                        }
+                    </td>
+                    <td id="@(item.Nome + "NDescarregado")" class='text-center '>
+                        @if (item.Status != "Entre Lotes")
+                        {
+                            @Html.DisplayFor(modelItem => item.NDescarregado)
+                        }
+                    </td>
+                    <td id="@(item.Nome + "NCheio")" class='text-center '>
+                        @if (item.Status != "Entre Lotes")
+                        {
+                            @Html.DisplayFor(modelItem => item.NCheio)
+                        }
+                    </td>
+                    <td id="@(item.Nome + "hPrevTermino")" class='text-center'>
+                        @Html.DisplayFor(modelItem => item.hPrevTermino)
+                    </td>
+                    <td id="@(item.Nome + "hf")" class='text-center '>
+                        @item.hf
+                    </td>
+                    <td id="@(item.Nome + "hDuracaoRetirar")" class='text-center @(item.CorDuracaoRetirar == 1 ? "warning-time-red" : "")'>
+                        @Html.DisplayFor(modelItem => item.hDuracaoRetirar)
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-xs-4"><h3 class="text-left">Histórico</h3></div>
+</div>
+<table class="table table-striped" id="tTable2">
+    <thead>
+        <tr>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hEntreLotes)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hPreparar)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hRolar)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hDuracaoRolar)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hi)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.NVagao)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hf)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hDuracaoRetirar)
+            </th>
+            <th class="text-center" style="background-color:lightblue">
+                @Html.DisplayNameFor(model => model.hRetira)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ReportLines != null)
+        {
+            foreach (var item in Model.ReportLines)
+            {
+                <tr class="linhasTabela2">
+                    <td class='text-center'>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+
+                    <td id="@(item.Nome + "hEntreLotesAnt")" class='text-center @(item.CorEntreLotes == 1 ? "warning-time-red" : "")'>
+                        @Html.DisplayFor(modelItem => item.hEntreLotesAnt)
+                    </td>
+                    <td id="@(item.Nome + "hPrepararAnt")" class='text-center @(item.CorPreparar == 1 ? "warning-time-red" : "")'>
+                        @Html.DisplayFor(modelItem => item.hPrepararAnt)
+                    </td>
+                    <td id="@(item.Nome + "hRolarAnt")" class='text-center'>
+                        @item.hRolarAnt
+                    </td>
+                    <td id="@(item.Nome + "hDuracaoRolarAnt")" class='text-center'>
+                        @Html.DisplayFor(modelItem => item.hDuracaoRolarAnt)
+                    </td>
+                    <td id="@(item.Nome + "hiAnt")" class='text-center'>
+                        @item.hiAnt
+                    </td>
+                    <td id="@(item.Nome + "NVagaoAnt")" class='text-center'>
+                        @Html.DisplayFor(modelItem => item.NVagaoAnt)
+                    </td>
+                    <td id="@(item.Nome + "hfAnt")" class='text-center'>
+                        @item.hfAnt
+                    </td>
+                    <td id="@(item.Nome + "hDuracaoRetirarAnt")" class='text-center'>
+                        @Html.DisplayFor(modelItem => item.hDuracaoRetirarAnt)
+                    </td>
+                    <td id="@(item.Nome + "hRetiraAnt")" class='text-center'>
+                        @item.hRetiraAnt
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
+
+<div id="divCont" class="row">
+    <div class="col-xs-12">
+        <p class="text-help">Atualizando em <span id="counter">4</span></p>
+    </div>
+</div>
+<div class="row text-right">
+    <a id="expandScreen" class="btn" href="#"><i style="color:black;" class="fa fa-compress fa-2x"></i></a>
+</div>

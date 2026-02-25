@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <Platforms>AnyCPU;x86</Platforms>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Repository\Implementation\CBRS\**" />
+    <Compile Remove="Repository\Source\CBRS\**" />
+    <EmbeddedResource Remove="Repository\Implementation\CBRS\**" />
+    <EmbeddedResource Remove="Repository\Source\CBRS\**" />
+    <None Remove="Repository\Implementation\CBRS\**" />
+    <None Remove="Repository\Source\CBRS\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Repository\Implementation\AssetManager\Class\IASWriteRead.cs" />
+    <Compile Remove="Repository\Implementation\AssetManager\Interface\IIASWriteRead.cs" />
+    <Compile Remove="Repository\Source\IReadOnlyGuid.cs" />
+    <Compile Remove="Repository\Source\IReadOnlyIntId.cs" />
+    <Compile Remove="Repository\Source\IWriteReadIntId.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.4.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="EntityFramework.CodeFirstStoreFunctions" Version="1.2.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.6" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Vale.Tops.Domain\Vale.Tops.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

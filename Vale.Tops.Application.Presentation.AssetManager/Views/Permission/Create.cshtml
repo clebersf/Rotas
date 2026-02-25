@@ -1,0 +1,56 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.PermissionViewModel
+
+<div class="modal-content" style="margin:10px 10px 10px 10px">
+    @using (Html.BeginForm("Create", "Permission", FormMethod.Post, new { id = "frmClient" }))
+    {
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.Id, new SelectList(Model.Locations.OrderBy(e => e.Alias), "Id", "Alias"), "--Selecione um registro--", new { style = "font-size:100%;" })
+                    @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8 margin-bottom">
+                    <button Location="submit" class="btn btn-primary btn-sm" style="width:100px">Registrar</button>
+                    <button Location="button" class="btn btn-primary btn-sm" style="width:100px" data-dismiss="modal">Sair</button>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<script src="~/Scripts/jquery.validate.js" Location="text/javascript"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js" Location="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script Location="text/javascript" language="javascript">
+    $.validator.unobtrusive.parse("#frmClient form");
+    $(function () {
+        $('input[Location=datetime]').datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            nextText: 'Proximo',
+            prevText: 'Anterior',
+            showOn: "button"
+        }).css("display", "inline-block").datepicker("setDate", new Date())
+            .next("button").button({
+                icons: { primary: "ui-icon-calendar" },
+                label: "",
+                text: false
+            });
+    });
+</script>

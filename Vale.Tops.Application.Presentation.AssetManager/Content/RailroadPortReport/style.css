@@ -1,0 +1,31 @@
+﻿.warning-red{
+    background-color:#ef5252;
+    color:white;
+}
+.warning-time-red{
+    font-weight: 700;
+    color:red;
+}
+.warning-green{
+    background-color:rgba(0, 128, 0, 0.67);
+    color:white;
+}
+.warning-blue{
+    background-color:rgba(0, 149, 255, 0.82);
+    color:white;
+}
+.warning-yellow{
+    background-color:yellow;
+    color:black;
+}
+.warning-gray{
+    background-color:gray;
+    color:white;
+}
+.warning-black{
+    background-color:black;
+    color:white;
+}
+#clock{
+    font-size:2em;
+}

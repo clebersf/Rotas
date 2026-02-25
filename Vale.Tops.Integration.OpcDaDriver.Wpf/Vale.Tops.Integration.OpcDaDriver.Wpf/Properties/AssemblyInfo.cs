@@ -1,0 +1,2 @@
+using System.Reflection; using System.Runtime.InteropServices;
+[assembly: AssemblyTitle("Vale.Tops.Integration.OpcDaDriver.Wpf")] [assembly: AssemblyDescription("WPF Test Console for OPC DA Driver")] [assembly: AssemblyCompany("Vale")] [assembly: AssemblyProduct("OPC DA Test Console")] [assembly: ComVisible(false)] [assembly: Guid("cde8d1a6-0a6e-4a43-8f6b-bdbe5fe42c11")] [assembly: AssemblyVersion("1.0.0.0")] [assembly: AssemblyFileVersion("1.0.0.0")]

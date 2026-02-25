@@ -1,0 +1,27 @@
+﻿<Window x:Class="Vale.Rotas.Add"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Vale.Rotas"
+        mc:Ignorable="d"
+         Topmost="True"
+        
+        Title="Acionar rota a fila" Height="425" Width="800" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Left="780" Top="100" Activated="Add_Activated"
+        >
+    <Grid>
+        <DataGrid Name="gdQueue" HorizontalAlignment="Left" Height="306" Margin="10,10,0,0" VerticalAlignment="Top" Width="772" SelectionChanged="GdQueue_SelectionChanged" IsReadOnly="True" SelectionMode="Single"/>
+        <Button Name="btAdd" IsEnabled="False" Content="Adicionar" HorizontalAlignment="Left" Height="33" Margin="649,346,0,0" VerticalAlignment="Top" Width="120" Click="BtAdd_Click" RenderTransformOrigin="0.317,-0.152"/>
+        <TextBox Name="txtAsset1" HorizontalAlignment="Left" Height="22" Margin="70,346,0,0" Text="" VerticalAlignment="Top" Width="470" TextChanged="TxtAsset1_TextChanged" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF5A5E78"/>
+        <Label Content="Filtro:" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="22,342,0,0" FontWeight="Bold"/>
+        <Label Name="lblQueueNRow"  Content="" HorizontalAlignment="Left" Margin="556,321,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Name="lblConsistency"  Content="" HorizontalAlignment="Left" Margin="649,321,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Separator HorizontalAlignment="Left" Height="8" Margin="556,338,0,0" VerticalAlignment="Top" Width="231"/>
+
+        <RadioButton Content="Estoque/Transf." Name="rbEmpilhar"  GroupName="rbDestination" HorizontalAlignment="Left" Margin="12,322,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
+        <RadioButton Content="Pier1" Name="rbPier1" GroupName="rbDestination" HorizontalAlignment="Left" Margin="183,322,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" RenderTransformOrigin="-1.392,0.337"/>
+        <RadioButton Content="Pier2" Name="rbPier2" GroupName="rbDestination" HorizontalAlignment="Left" Margin="304,322,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" Width="62"/>
+        <RadioButton Content="Manob/Limp" x:Name="rbManLimp" GroupName="rbDestination" HorizontalAlignment="Left" Margin="403,322,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" Width="97"/>
+    </Grid>
+</Window>

@@ -1,0 +1,247 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.HistoryLogViewModel
+
+@{
+    ViewBag.Title = " Diagnostico Técnico";
+    ViewBag.SubTitle = "Histórico de funcionamento das jobs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ Html.BeginForm("Job", "HistoryLog", FormMethod.Post, new { name = "tableForm" }); }
+<div class="col-md-12">
+    <div class="row">
+        <div class="panel panel-body">
+            <div class="form-row">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dhpi, htmlAttributes: new { @class = "control-label col-sm-1" })
+                    <div class="col-sm-2">
+                        @Html.EditorFor(model => model.dhpi, new { htmlAttributes = new { @class = "form-control", id = "idData1" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dhpf, htmlAttributes: new { @class = "control-label col-sm-1" })
+                    <div class="col-sm-2">
+                        @Html.EditorFor(model => model.dhpf, new { htmlAttributes = new { @class = "form-control", id = "idData2" } })
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="form-row">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Filter, htmlAttributes: new { @class = "control-label col-sm-1" })
+                    <div class="col-sm-2">
+                        @Html.EditorFor(model => model.Filter, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NegFilter, htmlAttributes: new { @class = "control-label col-sm-1" })
+                    <div class="col-sm-2">
+                        @Html.EditorFor(model => model.NegFilter, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary btn-sm" style="width:100px">Pesquisar</button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <hr />
+            <div class="bootstrap-admin-panel-content">
+                <div class="row">
+                    <i class="fa fa-info-circle"></i> @Html.DisplayFor(model => model.lines) linha(s) retornada(s). | @ViewBag.Message
+                </div>
+
+                <table class="table" id="tTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateTime)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Job)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Schedule)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ScheduleDuration)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CurrentDuration)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Performance)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Msg)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 0;}
+                        @foreach (var item in Model.agenthistory)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Job)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Schedule)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ScheduleDuration)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CurrentDuration)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Performance)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Message)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                        </tr>
+                            i++;
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModalSelected" tabindex="-1" style="margin:5px 5px 5px 5px" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><label for="a" id="txtTitleSelected"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="a" id="txtBodySelected"></label>
+            </div>
+            <div class="modal-footer">
+                <div class="margin-bottom">
+                    <button type="submit" class="btn btn-primary btn-sm" style="width:100px; ">Sim</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="width:100px" data-dismiss="modal">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@{ Html.EndForm(); }
+<!-- Modal -->
+
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><label for="a" id="txtTitlePartial"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv">
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+     window.onload = function () {
+
+        $(function () {
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+            }
+        });
+        $.validator.unobtrusive.parse("#frmClient form");
+
+        $('input[type=datetime]').datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            nextText: 'Proximo',
+            prevText: 'Anterior',
+            showOn: "button"
+        }).css("display", "inline-block")//.datepicker("setDate", new Date())
+            .next("button").button({
+                icons: { primary: "ui-icon-calendar" },
+                label: "",
+                text: false
+            });
+
+
+        var oTable = $("#tTable").DataTable({
+            "dom": 'Bfrtip',
+            "buttons": [
+                'copy', 'excel'
+            ],
+            "language": {
+                "lengthMenu": "Exibe _MENU_ Registros por página",
+                "search": "Procurar",
+                "paginate": { "previous": "Retorna", "next": "Avança" },
+                "zeroRecords": "Nada foi encontrado",
+                "info": "Exibindo página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sem registros",
+                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+            },
+            "order": [[0, "desc"]],
+            "processing": true, // mostrar a progress bar
+            //"serverSide": true, // processamento no servidor
+            "filter": true,     // habilita o filtro(search box)
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            "pageLength": 100,    // define o tamanho da página
+        });
+    }
+   
+
+    var jqFunctionSelected = function (str_titulo, str_body, Id) {
+        $('#txtTitleSelected').html(str_titulo);
+        $('#txtBodySelected').html(str_body);
+        $('#myModalSelected').on('shown.bs.modal', function () {
+
+        })
+        $('#IdScript').val(Id);
+    }
+
+
+
+</script>
+

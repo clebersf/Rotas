@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9F2A2D8A-ED9A-4FE2-9F78-7BC9A7385BB3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vale.Tops.Domain</RootNamespace>
+    <AssemblyName>Vale.Tops.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Active.cs" />
+    <Compile Include="Ore.cs" />
+    <Compile Include="Information.cs" />
+    <Compile Include="Line.cs" />
+    <Compile Include="Graph.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="rConveyorOutputPosition.cs" />
+    <Compile Include="rConveyorCapacity.cs" />
+    <Compile Include="rConveyorConsumption.cs" />
+    <Compile Include="rConveyorScale.cs" />
+    <Compile Include="rConveyorSpeed.cs" />
+    <Compile Include="Reference.cs" />
+    <Compile Include="Conveyor.cs" />
+    <Compile Include="Consistency.cs" />
+    <Compile Include="Permission.cs" />
+    <Compile Include="Damper.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="Reversal.cs" />
+    <Compile Include="rLocationEnable.cs" />
+    <Compile Include="rLocationValue.cs" />
+    <Compile Include="rLocationHistory.cs" />
+    <Compile Include="rConveyorLenght.cs" />
+    <Compile Include="rRouteGraphGpv.cs" />
+    <Compile Include="rRouteGraphLocation.cs" />
+    <Compile Include="RouteGraph.cs" />
+    <Compile Include="rRouteGraphSequence.cs" />
+    <Compile Include="rTagConveyorClean.cs" />
+    <Compile Include="rTagWrite.cs" />
+    <Compile Include="rTagInformation.cs" />
+    <Compile Include="rRouteReplace.cs" />
+    <Compile Include="rRouteQueue.cs" />
+    <Compile Include="rRouteConveyor.cs" />
+    <Compile Include="rConveyorInputPosition.cs" />
+    <Compile Include="Tripper.cs" />
+    <Compile Include="Feeder.cs" />
+    <Compile Include="rLocationIdxOxD.cs" />
+    <Compile Include="Step.cs" />
+    <Compile Include="Load.cs" />
+    <Compile Include="Flow.cs" />
+    <Compile Include="Compartment.cs" />
+    <Compile Include="Position.cs" />
+    <Compile Include="Berth.cs" />
+    <Compile Include="Instrument.cs" />
+    <Compile Include="rProductionRoute.cs" />
+    <Compile Include="Stock.cs" />
+    <Compile Include="Boarding.cs" />
+    <Compile Include="EventFtv.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="Destination.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="CheckList.cs" />
+    <Compile Include="AlarmFtv.cs" />
+    <Compile Include="rLocationDataHistory.cs" />
+    <Compile Include="rInstrumentMeasure.cs" />
+    <Compile Include="rProductionBoarding.cs" />
+    <Compile Include="rProductionOrigin.cs" />
+    <Compile Include="rProductionStock.cs" />
+    <Compile Include="rRouteTravel.cs" />
+    <Compile Include="rRouteActive.cs" />
+    <Compile Include="rRouteOxD.cs" />
+    <Compile Include="rRouteSequence.cs" />
+    <Compile Include="Route.cs" />
+    <Compile Include="Resource.cs" />
+    <Compile Include="Origin.cs" />
+    <Compile Include="rLogbookVV.cs" />
+    <Compile Include="rLogbookEPEE.cs" />
+    <Compile Include="rLogbookHistory.cs" />
+    <Compile Include="OxD.cs" />
+    <Compile Include="Chart.cs" />
+    <Compile Include="Logbook.cs" />
+    <Compile Include="History.cs" />
+    <Compile Include="Production.cs" />
+    <Compile Include="Plc.cs" />
+    <Compile Include="rTagGroup.cs" />
+    <Compile Include="Tag.cs" />
+    <Compile Include="Type.cs" />
+    <Compile Include="vwGraphJson.cs" />
+    <Compile Include="UserInfo.cs" />
+    <Compile Include="Location.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Front.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="rRuleNavbar.cs" />
+    <Compile Include="Rule.cs" />
+    <Compile Include="SelectedGuid.cs" />
+    <Compile Include="SelectedInt.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="vwCockpitCentreon.cs" />
+    <Compile Include="vwCockpit01DB.cs" />
+    <Compile Include="vwCockpitSGForce.cs" />
+    <Compile Include="vwFTACChange.cs" />
+    <Compile Include="vwEffectiveRate.cs" />
+    <Compile Include="HistorySGForce.cs" />
+    <Compile Include="vwRailRoadReport.cs" />
+    <Compile Include="vwFlowPeakReclaimer.cs" />
+    <Compile Include="PresentationProductionBoarding.cs" />
+    <Compile Include="vwRateioGpvAllPublish.cs" />
+    <Compile Include="vwRateioGpvDescPublish.cs" />
+    <Compile Include="vwRouteActiveList.cs" />
+    <Compile Include="vwConveryorInformation.cs" />
+    <Compile Include="vwRouteLog.cs" />
+    <Compile Include="vw_Agent_History_Performance.cs" />
+    <Compile Include="fn_RouteReplacer_I_Route_O_Route.cs" />
+    <Compile Include="vw_Plc_Read_Time.cs" />
+    <Compile Include="vw_Route_Consistency.cs" />
+    <Compile Include="vw_Route_Consistency_Damper.cs" />
+    <Compile Include="vw_Route_Consistency_Rule.cs" />
+    <Compile Include="vw_Route_Consistency_Limit.cs" />
+    <Compile Include="vwHistorySGForce.cs" />
+    <Compile Include="vw_Opc_TagGroup.cs" />
+    <Compile Include="vw_Route_Tag_Damper_Command.cs" />
+    <Compile Include="vw_Route_Tag_Damper_Permission.cs" />
+    <Compile Include="vw_Route_Tag_Eqp_D_Permission.cs" />
+    <Compile Include="vw_Route_Tag_Eqp_O_Permission.cs" />
+    <Compile Include="vw_Route_Tag_Tripper_Permission.cs" />
+    <Compile Include="vw_Route_Tag_Tripper_Command.cs" />
+    <Compile Include="vw_Route_Tag_Reversal_Permission.cs" />
+    <Compile Include="vw_Route_Tag_Reversal_Command.cs" />
+    <Compile Include="vw_Route_Tag_OxD_Permission.cs" />
+    <Compile Include="vw_Route_Tag_Feeder_Permission.cs" />
+    <Compile Include="vw_Route_Tag_Feeder_Command.cs" />
+    <Compile Include="vw_Route_Tag_Eqp_Permission.cs" />
+    <Compile Include="vw_Route_Consistency_Reversal.cs" />
+    <Compile Include="vw_Route_Consistency_Tripper.cs" />
+    <Compile Include="vw_Route_Consistency_Feeder.cs" />
+    <Compile Include="vw_Rule_Route_Active.cs" />
+    <Compile Include="vw_Presentation_Production_Boarding.cs" />
+    <Compile Include="vwRateioGpvPublish.cs" />
+    <Compile Include="GroupDns.cs" />
+    <Compile Include="vwUserRule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

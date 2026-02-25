@@ -1,0 +1,70 @@
+﻿@* Local: Vale.Tops.Application.Presentation.Diagnosis/Views/Consistency/Index.cshtml *@
+
+@using Vale.Tops.Application.Presentation.Diagnosis.ViewModels
+@model List<RouteConsistencyViewModel>
+
+@{
+    ViewBag.Title = "Diagnóstico de Consistência de Rotas";
+}
+
+<style>
+    /* Estilo simples para destacar falhas */
+    .table .danger {
+        background-color: #f2dede; /* Cor de fundo vermelha clara */
+        color: #a94442; /* Cor do texto vermelha escura */
+    }
+</style>
+
+<h2>@ViewBag.Title</h2>
+<p>
+    Visão consolidada das Rotas Ativas e na Fila e seu **Status de Consistência**.
+    <br />
+    <small>
+        Status (SIM/NÃO) lido da View SQL. Detalhes de falha mostram o porquê a rota está bloqueada.
+    </small>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome da Rota</th>
+            <th>Tipo</th>
+            <th>Status Consistência</th>
+            <th>Última Atualização</th>
+            <th>Detalhes da Inconsistência</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var route in Model)
+        {
+            <tr class="@(route.Consistente ? "" : "danger")">
+                <td>@route.RouteId</td>
+                <td>@route.NomeCompleto (@route.NomeResumido)</td>
+                <td>@route.TipoRota</td>
+                <td>
+                    <strong>@route.StatusConsistencia</strong>
+                </td>
+                <td>@route.UltimaAtualizacao.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                <td>
+                    @if (!route.Consistente)
+                    {
+                        // Lista de falhas
+                        <ul>
+                            @foreach (var detail in route.DetalhesInconsistencia)
+                            {
+                                <li>
+                                    <strong>@detail.Equipamento:</strong> @detail.MensagemDeErro
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>A rota está liberada para acionamento.</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

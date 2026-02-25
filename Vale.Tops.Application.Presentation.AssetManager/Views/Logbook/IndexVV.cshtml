@@ -1,0 +1,376 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.LogbookVVViewModel
+
+@{
+    ViewBag.Title = "Diário de bordo";
+    ViewBag.SubTitle = "Histórico de registros - Viradores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("IndexVV", "Logbook", FormMethod.Post, new { id = "frmClient" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-md-12">
+        <div class="row">
+            <div class="panel panel-body">
+                <div class="bootstrap-admin-panel-content">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.dhpi, htmlAttributes: new { @class = "control-label col-sm-1" })
+                            <div class="col-sm-1">
+                                @Html.EditorFor(model => model.dhpi, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.dhpf, htmlAttributes: new { @class = "control-label col-sm-1" })
+                            <div class="col-sm-1">
+                                @Html.EditorFor(model => model.dhpf, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Asset, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <div class="col-md-1">
+                                @Html.DropDownListFor(model => model.LocationId, new SelectList(Model.Locations.OrderBy(e => e.Alias), "Id", "Alias"), "--Selecione um registro--", new { style = "font-size:100%;" , data_val = false })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-primary btn-sm" style="width:100px">Pesquisar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <div class="row">
+                        <a href="#" class="btn btn-link" onclick="jqFunctionPartialViewCreate('','Novo Registro' )">Novo Registro <i class="glyphicon glyphicon-new-window"></i> </a> |
+                        <i class="fa fa-info-circle"></i> @Html.DisplayFor(model => model.lines) linha(s) retornada(s). | @ViewBag.Message
+                    </div>
+                    <div id="dvScroll" style="overflow: scroll;overflow-x: scroll;">
+                        <table class="table table-striped table-condensed table-responsive-md table-bordered panel panel-body" id="tTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.dh)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Asset)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_QuantidadeVagoes)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_NomeOperador1)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.s_Diario_dh_Operador1)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_NomeOperador2)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.s_Diario_dh_Operador2)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_Operador1QtVagoes)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_Observacao)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_ObservacaoTaxa)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_VVRestrito)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_RotaRestrita)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_QualidadeMaterial)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.s_Diario_PartirCiclo)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.s_Diario_PartirTerminoDescarga)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.bal)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_Prefixo)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_Material)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_Area)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.In_Diario_Destino)
+                                    </th>
+
+
+                                    @*<th style="color:white">.........................................</th>*@
+</thead>
+                            <tbody>
+                                @{int i = 0;}
+                                @foreach (var item in Model.Logbookvvs)
+                                {
+                                    var dh_op_1 = item.In_Diario_Operador1Hora.ToString("00") + ":" + item.In_Diario_Operador1Minuto.ToString("00");
+                                    var dh_op_2 = item.In_Diario_Operador2Hora.ToString("00") + ":" + item.In_Diario_Operador2Minuto.ToString("00");
+                                    var dh_pciclo = item.In_Diario_PartirCicloHora.ToString("00") + ":" + item.In_Diario_PartirCicloMinuto.ToString("00");
+                                    var dh_ptermino = item.In_Diario_TerminoDescargaHora.ToString("00") + ":" + item.In_Diario_TerminoDescargaMinuto.ToString("00");
+                                    var bal = item.In_Diario_BalizaMenor.ToString("00") + "x" + item.In_Diario_BalizaMaior.ToString("00");
+                                    var user_1 = item.In_Diario_NomeOperador1 != null ? item.In_Diario_NomeOperador1.Replace(@"TA-VALE\", "") : "Desconhecido";
+                                    var user_2 = item.In_Diario_NomeOperador2 != null ? item.In_Diario_NomeOperador2.Replace(@"TA-VALE\", "") : "Desconhecido";
+                                    string vv_retrito = item.In_Diario_VVRestrito ? "X" : "";
+                                    string rota_restrita = item.In_Diario_RotaRestrita ? "X" : "";
+                                    string qualidade = item.In_Diario_QualidadeMaterial ? "X" : "";
+                                    //var asset = item.Location.Alias.Replace(@"DB_CK_EP_", "").Replace("DB_CK_", "");
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Logbook.dh)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Logbook.Location.Alias)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.In_Diario_QuantidadeVagoes)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => user_1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => dh_op_1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => user_2)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => dh_op_2)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.In_Diario_Operador1QtVagoes)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.In_Diario_Observacao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.In_Diario_ObservacaoTaxa)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => vv_retrito)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => rota_restrita)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => qualidade)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => dh_pciclo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => dh_ptermino)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => bal)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.In_Diario_Prefixo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.In_Diario_Material)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.In_Diario_Area)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.In_Diario_Destino)
+                                    </td>
+
+                                    @*<td style="width:10px">
+            @if (item.Logbook.rLogbookHistory.Count > 0)
+            {
+                <a href="#" class="btn btn-link" onclick="jqSolFunctionPartialViewHistory('@item.Id','Historico de Ações' )">Historico <i class="glyphicon glyphicon-edit"></i> </a>
+            }
+            @if (ViewBag.Menu_09 == true)
+            {
+                <a href="#" class="btn btn-link" onclick="jqFunctionPartialViewEdit('@item.Id','Editar Registro' )">Editar<i class="glyphicon glyphicon-edit"></i> </a>
+            }
+            <a href="#" class="btn btn-link" onclick="jqFunctionPartialViewDelete('@item.Id','Tem certeza que deseja deletar o registro?', 'IndexPage' )">Apagar<i class="glyphicon glyphicon-edit"></i> </a> |
+            @Html.HiddenFor(model => model.Id, new { @id = "IdScript" })
+            @Html.HiddenFor(model => model.IndexPage, new { @id = "IndexPage" })
+
+        </td>*@
+                                </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="modal fade" id="ModalSelected" tabindex="-1" style="margin:5px 5px 5px 5px" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><label for="a" id="txtTitleSelected"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="a" id="txtBodySelected"></label>
+            </div>
+            <div class="modal-footer">
+                <div class="margin-bottom">
+                    <button type="submit" class="btn btn-primary btn-sm" style="width:100px; ">Sim</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="width:100px" data-dismiss="modal">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{ Html.EndForm(); }
+<!-- Modal -->
+
+
+<div class="modal" id="myModal" style="margin:5px 5px 5px 5px" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><label for="a" id="txtTitlePartial"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+ window.onload = function () {
+        $(document).ready(function () {
+    $("#divCarregando").show();
+    $(window).load(function () {
+        // Quando a página estiver totalmente carregada, remove o id
+        $('#divCarregando').fadeOut('slow');
+    });
+});
+        $(function () {
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+            }
+        });
+        $.validator.unobtrusive.parse("#frmClient form");
+
+        $('input[type=datetime]').datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            nextText: 'Proximo',
+            prevText: 'Anterior',
+            showOn: "button"
+        }).css("display", "inline-block")//.datepicker("setDate", new Date())
+            .next("button").button({
+                icons: { primary: "ui-icon-calendar" },
+                label: "",
+                text: false
+            });
+
+
+        var oTable = $("#tTable").DataTable({
+            "dom": 'Bfrtip',
+            "buttons": [
+                'copy', 'excel'
+            ],
+            "language": {
+                "lengthMenu": "Exibe _MENU_ Registros por página",
+                "search": "Procurar",
+                "paginate": { "previous": "Retorna", "next": "Avança" },
+                "zeroRecords": "Nada foi encontrado",
+                "info": "Exibindo página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sem registros",
+                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+            },
+            "order": [[0, "desc"]],
+            "processing": true, // mostrar a progress bar
+            //"serverSide": true, // processamento no servidor
+            "filter": true,     // habilita o filtro(search box)
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            "pageLength": -1,    // define o tamanho da página
+        });
+    }
+
+    var jqFunctionPartialViewEdit = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("EditEP", "Logbook")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+     var jqFunctionPartialViewDelete = function (Id, str_titulo, StrAct) {
+        $('#IndexPage').val(StrAct);
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Delete", "Logbook")" + '?Id=' + Id + '&Index=IndexEP', function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewCopy = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("CopyEP", "Logbook")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewCreate = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("CreateEP", "Logbook")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+
+    //var jqFunctionSelected = function (str_titulo, str_body, Id) {
+    //    $('#txtTitleSelected').html(str_titulo);
+    //    $('#txtBodySelected').html(str_body);
+    //    $('#myModalSelected').on('shown.bs.modal', function () {
+
+    //    })
+    //    $('#IdScript').val(Id);
+    //}
+
+
+</script>
+

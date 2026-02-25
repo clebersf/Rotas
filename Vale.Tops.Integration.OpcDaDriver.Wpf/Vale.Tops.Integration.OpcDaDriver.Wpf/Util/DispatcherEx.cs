@@ -1,0 +1,2 @@
+using System; using System.Windows; using System.Windows.Threading;
+namespace Vale.Tops.Integration.OpcDaDriver.Wpf.Util { public static class DispatcherEx { public static void UI(Action a){ var d=Application.Current?.Dispatcher; if(d==null||d.CheckAccess()) a(); else d.Invoke(a, DispatcherPriority.Background);} } }

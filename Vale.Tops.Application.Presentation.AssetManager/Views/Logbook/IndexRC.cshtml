@@ -1,0 +1,363 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.LogbookRCViewModel
+
+@{
+    ViewBag.Title = "Diário de bordo";
+    ViewBag.SubTitle = "Histórico de registros - Recuperadoras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("IndexRC", "Logbook", FormMethod.Post, new { id = "frmClient" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-md-12">
+        <div class="row">
+            <div class="panel panel-body">
+                <div class="bootstrap-admin-panel-content">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.dhpi, htmlAttributes: new { @class = "control-label col-sm-1" })
+                            <div class="col-sm-1">
+                                @Html.EditorFor(model => model.dhpi, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.dhpf, htmlAttributes: new { @class = "control-label col-sm-1" })
+                            <div class="col-sm-1">
+                                @Html.EditorFor(model => model.dhpf, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Asset, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <div class="col-md-1">
+                                @Html.DropDownListFor(model => model.LocationId, new SelectList(Model.Locations.OrderBy(e => e.Alias), "Id", "Alias"), "--Selecione um registro--", new { style = "font-size:100%;" , data_val = false })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-primary btn-sm" style="width:100px">Pesquisar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <div class="row">
+                        <a href="#" class="btn btn-link" onclick="jqFunctionPartialViewCreate('','Novo Registro' )">Novo Registro <i class="glyphicon glyphicon-new-window"></i> </a> |
+                        <i class="fa fa-info-circle"></i> @Html.DisplayFor(model => model.lines) linha(s) retornada(s). | @ViewBag.Message
+                    </div>
+                    <div id="dvScroll" style="overflow: scroll;overflow-x: scroll;">
+                        <table class="table table-striped table-condensed table-responsive-md table-bordered panel panel-body" id="tTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.dh)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Asset)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.hi)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.hf)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ShipCradle)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Conjunct)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Hold)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Area)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Landmark)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Material)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.User)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.WeightAsset)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.WeightConjunct)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FlowMeasured)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FlowReal)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Cod)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Observation)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Quantity)
+                                    </th>
+                                    <th style="color:white">.........................................</th>
+                            </thead>
+                            <tbody>
+                                @{int i = 0;}
+                                @foreach (var item in Model.Logbooks)
+                                {
+                                    var timei = item.hi != null & item.mi != null ? item.hi.Value.ToString("00") + ":" + item.mi.Value.ToString("00") : "";
+                                    var timef = item.hf != null ? item.hf.Value.ToString("00") + ":" + item.mf.Value.ToString("00") : "";
+                                    var landmark = item.LandmarkInitial != null & item.LandmarkFinal != null ? item.LandmarkInitial.Value.ToString("00") + "x" + item.LandmarkFinal.Value.ToString("00") : "";
+                                    var user = item.User != null ? item.User.Replace(@"TA-VALE\", "") : "Desconhecido";
+                                    var asset = item.Asset != null ? item.Asset.Replace(@"DB_CK_RC_", "").Replace("DB_CK_", "") : "";
+                                    <tr>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.dh)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => asset)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => timei)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => timef)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.ShipCradle)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.Conjunct)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.Hold)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AreaSelected)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => landmark)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.Material)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => user)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.WeightAsset)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.WeightConjunct)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.FlowMeasured)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.FlowReal)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.Cod)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.Observation)
+                                        </td>
+                                        <td style="width:10px">
+                                            @Html.DisplayFor(modelItem => item.Quantity)
+                                        </td>
+                                        <td style="width:10px">
+                                            @if (item.rLogbookHistory.Count > 0)
+                                            {
+                                                <a href="#" class="btn btn-link" onclick="jqSolFunctionPartialViewHistory('@item.Id','Historico de Ações' )">Historico <i class="glyphicon glyphicon-edit"></i> </a>
+                                            }
+                                            @if (ViewBag.Menu_09 == true)
+                                            {
+                                                <a href="#" class="btn btn-link" onclick="jqFunctionPartialViewEdit('@item.Id','Editar Registro' )">Editar<i class="glyphicon glyphicon-edit"></i> </a>
+                                            }
+                                            @*<a href="#" class="btn btn-link" onclick="jqFunctionPartialViewDelete('@item.Id','Tem certeza que deseja deletar o registro?','IndexRC' )">Apagar<i class="glyphicon glyphicon-edit"></i> </a> |*@
+                                            @Html.HiddenFor(model => model.Id, new { @id = "IdScript" })
+                                            @Html.HiddenFor(model => model.IndexPage, new { @StrAct = "IdScript" })
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="modal fade" id="ModalSelected" tabindex="-1" style="margin:5px 5px 5px 5px" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><label for="a" id="txtTitleSelected"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="a" id="txtBodySelected"></label>
+            </div>
+            <div class="modal-footer">
+                <div class="margin-bottom">
+                    <button type="submit" class="btn btn-primary btn-sm" style="width:100px; ">Sim</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="width:100px" data-dismiss="modal">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{ Html.EndForm(); }
+<!-- Modal -->
+
+
+<div class="modal" id="myModal" style="margin:5px 5px 5px 5px" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><label for="a" id="txtTitlePartial"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    window.onload = function () {
+        $(document).ready(function () {
+    $("#divCarregando").show();
+    $(window).load(function () {
+        // Quando a página estiver totalmente carregada, remove o id
+        $('#divCarregando').fadeOut('slow');
+    });
+});
+        $(function () {
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+            }
+        });
+        $.validator.unobtrusive.parse("#frmClient form");
+
+        $('input[type=datetime]').datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            nextText: 'Proximo',
+            prevText: 'Anterior',
+            showOn: "button"
+        }).css("display", "inline-block")//.datepicker("setDate", new Date())
+            .next("button").button({
+                icons: { primary: "ui-icon-calendar" },
+                label: "",
+                text: false
+            });
+
+
+        var oTable = $("#tTable").DataTable({
+            "dom": 'Bfrtip',
+            "buttons": [
+                'copy', 'excel'
+            ],
+            "language": {
+                "lengthMenu": "Exibe _MENU_ Registros por página",
+                "search": "Procurar",
+                "paginate": { "previous": "Retorna", "next": "Avança" },
+                "zeroRecords": "Nada foi encontrado",
+                "info": "Exibindo página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sem registros",
+                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+            },
+            "order": [[0, "desc"]],
+            "processing": true, // mostrar a progress bar
+            //"serverSide": true, // processamento no servidor
+            "filter": true,     // habilita o filtro(search box)
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            "pageLength": -1,    // define o tamanho da página
+        });
+    }
+
+    var jqSolFunctionPartialViewHistory = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("History", "Logbook")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewEdit = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("EditRC", "Logbook")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewDelete = function (Id, str_titulo, StrAct) {
+        $('#IdScript').val(StrAct);
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("Delete", "Logbook")" + '?Id=' + Id + '&Index=IndexRC', function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewCopy = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("CopyRC", "Logbook")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+    var jqFunctionPartialViewCreate = function (Id, str_titulo) {
+        $('#txtTitlePartial').html(str_titulo);
+        $("#myModalBodyDiv").load("@Url.Action("CreateRC", "Logbook")" + '/' + Id, function () {
+            $("#myModal").modal("show");
+
+        })
+
+    }
+
+
+    var jqFunctionSelected = function (str_titulo, str_body, Id) {
+        $('#txtTitleSelected').html(str_titulo);
+        $('#txtBodySelected').html(str_body);
+        $('#myModalSelected').on('shown.bs.modal', function () {
+
+        })
+        $('#IdScript').val(Id);
+    }
+
+
+</script>
+

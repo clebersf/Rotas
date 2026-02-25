@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Vale.Tops.Integration.OpcDaDriver.Service": {
+      "commandName": "Project",
+      "commandLineArgs": "/console"
+    }
+  }
+}

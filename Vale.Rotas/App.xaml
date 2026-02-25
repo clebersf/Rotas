@@ -1,0 +1,10 @@
+﻿<Application x:Class="Vale.Rotas.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Vale.Rotas"
+             StartupUri="MainWindow.xaml"
+  Deactivated="App_Deactivated"  Startup="App_Startup" >
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

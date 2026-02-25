@@ -1,0 +1,79 @@
+﻿@* Define o tipo de modelo que a View espera receber *@
+@model IEnumerable<Vale.Tops.Application.Presentation.Diagnosis.ViewModels.ConsistencyReportItemViewModel>
+
+@{
+    ViewBag.Title = "Relatório Consolidado de Inconsistências de Rotas";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>📊 @ViewBag.Title</h2>
+        <p class="lead">Lista de todas as inconsistências detectadas nas Rotas e Equipamentos.</p>
+        
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>Erro:</strong> @ViewBag.ErrorMessage
+            </div>
+        }
+        
+        @if (Model == null || !Model.Any())
+        {
+            <div class="alert alert-success" role="alert">
+                ✅ **Sucesso!** Nenhuma inconsistência de rota foi encontrada.
+            </div>
+        }
+        else
+        {
+            <p>Foram encontradas **@Model.Count()** inconsistências. Os resultados estão agrupados por Tipo de Inconsistência e ordenados por Equipamento.</p>
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nome do Equipamento</th>
+                        <th>Tipo de Inconsistência</th>
+                        <th>ID da Origem</th>
+                        <th>Valor (0=INCONSISTENTE)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            {{-- Nome do Equipamento/Rota. Destaque em caso de ID desconhecido. --}}
+                            <td>
+                                @if (item.EquipmentName.StartsWith("ID Desconhecido"))
+                                {
+                                    <span class="text-danger">@item.EquipmentName</span>
+                                }
+                                else
+                                {
+                                    <strong>@item.EquipmentName</strong>
+                                }
+                            </td>
+                            {{-- Tipo de Inconsistência (Damper, Feeder, etc.) --}}
+                            <td>@item.InconsistencyType</td>
+                            {{-- ID da Inconsistência, útil para debug --}}
+                            <td>@item.Id</td>
+                            {{-- Valor da Consistência. Sempre 0 nesta View devido ao filtro. --}}
+                            <td>
+                                <span class="badge badge-danger">@item.ConsistencyValue</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+<style>
+/* Estilos básicos para o Bootstrap (assumindo que você está usando Bootstrap) */
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+</style>

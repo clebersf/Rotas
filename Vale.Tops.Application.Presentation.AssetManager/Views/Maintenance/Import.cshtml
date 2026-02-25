@@ -1,0 +1,11 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.MaintenanceViewModel
+
+@using (Html.BeginForm("Import", "Maintenance", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+    @Html.ValidationSummary();
+    @Html.HiddenFor(model => model.Id)
+    <label class="text-info">Importar arquivo de excel</label>
+    <input type="file" class="btn btn-default" name="uploadfile" id="uploadfile" />
+    <input type="submit" value="Enviar" class="btn btn-default" />
+}

@@ -1,0 +1,32 @@
+﻿@model Vale.Tops.Application.Presentation.AssetManager.Models.ProductionViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Produção";
+    ViewBag.SubTitle = "Produção Online de Embarque";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="divPartialView">@Html.Action("Tables")</div>
+
+<script>
+    var i = 1;
+    window.onload = function () {        
+                var s = setInterval(function () {
+                    i++;                    
+                    if (i > 5) {
+                        i = 1;                        
+                    }
+                    if (i == 1) {
+                        $(function () {
+                            $("#divPartialView").load('@Url.Action("Tables")')
+                        });
+                    }    
+                    $('#counter').html(5 - i);
+                    var dt = new Date();
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                    $('#clock').html(time);
+                }, 1000)
+    }
+</script>
