@@ -48,3 +48,9 @@ classDiagram
     Plc "1" *-- "*" Tag
     rInstrumentMeasure "*" --> "1" Tag : Reads
     rTagWrite "1" --> "1" Tag : Writes
+```
+## 2.3 Camada de Persistência (CQRS)
+O sistema implementa o Repository Pattern segregando as responsabilidades de leitura e escrita para evitar locks transacionais pesados no SQL:
+WriteReadContext: Contexto do Entity Framework para transações ACID (Insert, Update, Delete). Ex: IWriteRead<Location>.
+ReadOnlyContext: Contexto NoTracking utilizado puramente para leitura das Views e acionamento de Stored Procedures (como a sp_Route_Tag_Bool_Activate).
+Autofac: Utilizado para injeção de dependência (InstancePerLifetimeScope), resolvendo as interfaces genéricas dos repositórios.
