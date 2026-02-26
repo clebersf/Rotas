@@ -18,7 +18,7 @@ Atua como ponte direta entre o planejamento de produção (Tático) e a automaç
 ## 📖 Documentação Completa (Wiki)
 A arquitetura detalhada, diagramas UML, modelagem de dados e regras de negócio estão documentados na Wiki do projeto. Acesse pelos links abaixo:
 
-1. [Visão Geral e Base Teórica (Algoritmo VNS)](link-para-a-wiki)
+1. [Visão Geral e Base Teórica](link-para-a-wiki)
 2. [Modelo de Domínio e Banco de Dados (Entity Framework)](link-para-a-wiki)
 3. [Motor de Segurança e Consistência (SQL Server)](link-para-a-wiki)
 4. [Camada de Apresentação (WPF UI)](link-para-a-wiki)
