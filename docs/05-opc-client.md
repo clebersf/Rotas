@@ -35,7 +35,7 @@ graph TD
 ```
 5.2 Fluxo de Leitura (OnDataChange)
 O sistema não faz polling de leitura, para não estrangular a rede industrial. Quando um bit muda na planta, o evento Group_DataChange joga o valor e o timestamp numa fila thread-safe. A cada 300ms, a Task FlushMeasuresLoopAsync esvazia a fila e aplica um update massivo no banco (Tabela rInstrumentMeasure).
-5.3 Fluxo de Escrita (Ativação de Planta)
+5.3 Fluxo de Escrita (Ativação de Planta) 
 A cada 500ms, a rotina PollWritesLoopAsync verifica a tabela rTagWrite.
 * Quando uma tag tem a flag Write = 1, o serviço converte a String gerada pelo sistema de roteamento para o tipo binário exigido pelo controlador (CoerceToCanonicalVariant -> VT_BOOL, VT_R4).
 * A instrução SyncWrite é enviada à Thread STA. Se não houver erros (HRESULT 0), a flag de escrita é limpa no banco.
