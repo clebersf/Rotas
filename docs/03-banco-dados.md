@@ -90,7 +90,7 @@ erDiagram
     %% ==========================================
     Location {
         bigint Id PK
-        bigint ParentId FK "Auto-referência (Hierarquia)"
+        bigint ParentId FK "Auto-referencia (Hierarquia)"
         bigint TypeId FK
         varchar Name
         nvarchar Alias
@@ -102,11 +102,11 @@ erDiagram
         nvarchar Description
     }
 
-    Location ||--o{ Location : "ParentId (Nó Pai/Filho)"
+    Location ||--o{ Location : "ParentId (No Pai/Filho)"
     Type ||--o{ Location : "Classifica o Location"
 
     %% ==========================================
-    %% BLOCO: ESPECIALIZAÇÕES FÍSICAS (1:1 com Location)
+    %% BLOCO: ESPECIALIZACOES FISICAS (1:1 com Location)
     %% ==========================================
     Conveyor { bigint Id PK,FK }
     Tripper { bigint Id PK,FK }
@@ -119,19 +119,19 @@ erDiagram
     Berth { bigint Id PK,FK }
     Compartment { bigint Id PK,FK }
 
-    Location ||--|| Conveyor : "é um"
-    Location ||--|| Tripper : "é um"
-    Location ||--|| Feeder : "é um"
-    Location ||--|| Damper : "é um"
-    Location ||--|| Reversal : "é um"
-    Location ||--|| Origin : "é um"
-    Location ||--|| Destination : "é um"
-    Location ||--|| Plc : "é um"
-    Location ||--|| Berth : "é um"
-    Location ||--|| Compartment : "é um"
+    Location ||--|| Conveyor : "e um"
+    Location ||--|| Tripper : "e um"
+    Location ||--|| Feeder : "e um"
+    Location ||--|| Damper : "e um"
+    Location ||--|| Reversal : "e um"
+    Location ||--|| Origin : "e um"
+    Location ||--|| Destination : "e um"
+    Location ||--|| Plc : "e um"
+    Location ||--|| Berth : "e um"
+    Location ||--|| Compartment : "e um"
 
     %% ==========================================
-    %% BLOCO: ROTEAMENTO (Grafos e Sequências)
+    %% BLOCO: ROTEAMENTO (Grafos e Sequencias)
     %% ==========================================
     RouteGraph {
         bigint Id PK
@@ -141,7 +141,7 @@ erDiagram
     rRouteGraphSequence {
         bigint Id PK
         int Order
-        bigint LocationId FK "Aresta/Nó do Caminho"
+        bigint LocationId FK "Aresta/No do Caminho"
         bigint RouteGraphId FK
     }
 
@@ -159,34 +159,34 @@ erDiagram
 
     Location ||--o{ rRouteGraphSequence : "Faz parte de"
     RouteGraph ||--o{ rRouteGraphSequence : "Possui Passos"
-    Location ||--|| OxD : "é um"
+    Location ||--|| OxD : "e um"
     OxD ||--o{ rRouteOxD : "Mapeia Rotas"
 
     %% ==========================================
-    %% BLOCO: GESTÃO DE ESTADO (Fila e Ativas)
+    %% BLOCO: GESTAO DE ESTADO (Fila e Ativas)
     %% ==========================================
     rRouteQueue {
-        bigint Id PK,FK "Ref. à Rota"
+        bigint Id PK,FK "Ref. a Rota"
         datetime dh
     }
     
     rRouteActive {
-        bigint Id PK,FK "Ref. à Rota"
+        bigint Id PK,FK "Ref. a Rota"
         datetime dh
     }
     
     rRouteReplace {
         bigint Id PK,FK "Nova Rota"
-        bigint LocationId FK "Rota Substituída"
+        bigint LocationId FK "Rota Substituida"
         datetime dh
     }
 
-    Location ||--|| rRouteQueue : "Está na Fila"
-    Location ||--|| rRouteActive : "Está Operando"
+    Location ||--|| rRouteQueue : "Esta na Fila"
+    Location ||--|| rRouteActive : "Esta Operando"
     Location ||--|| rRouteReplace : "Substitui"
 
     %% ==========================================
-    %% BLOCO: AUTOMAÇÃO (OPC DA / CLP)
+    %% BLOCO: AUTOMACAO (OPC DA / CLP)
     %% ==========================================
     Tag {
         bigint Id PK
@@ -195,7 +195,7 @@ erDiagram
     }
 
     rInstrumentMeasure {
-        bigint Id PK,FK "Ref. ao Instrumento (Location)"
+        bigint Id PK,FK "Ref. ao Instrumento"
         nvarchar Value
         datetime dh
         datetime LastDh
@@ -209,12 +209,12 @@ erDiagram
     }
 
     Plc ||--o{ Tag : "Possui Tags"
-    Tag ||--o{ rInstrumentMeasure : "Lê do PLC"
+    Tag ||--o{ rInstrumentMeasure : "Le do PLC"
     Location ||--|| rInstrumentMeasure : "Possui Valor Lido"
     Tag ||--|| rTagWrite : "Escreve no PLC"
 
     %% ==========================================
-    %% BLOCO: PRODUÇÃO E RATEIO
+    %% BLOCO: PRODUCAO E RATEIO
     %% ==========================================
     Production {
         uniqueidentifier Id PK
@@ -240,11 +240,8 @@ erDiagram
         float InitialLoad
     }
 
-    Production ||--o{ rProductionRoute : "Gera Histórico (Origem)"
-    Production ||--|| rProductionStock : "Gera Estoque (Destino)"
+    Production ||--o{ rProductionRoute : "Gera Historico"
+    Production ||--|| rProductionStock : "Gera Estoque"
     Location ||--o{ rProductionRoute : "Transportou"
 
-* **`vw_Tag_Media_Driver_Optimized` e `sp_Tag_Calc_Media_Driver`**
-  * **O que faz:** É o "médico" do driver de comunicação OPC. Ele monitora se a leitura do PLC travou.
-  * **Como funciona no código:** O código calcula o tempo entre a última leitura (`LastDh`) e o momento atual. Se a média de atraso passar de 7 segundos ou o dado for mais velho que 60 segundos, a View classifica o status como `'Bad'`. A *Stored Procedure* lê isso e, se achar um `'Bad'`, insere um alarme automático na tabela de `Log` avisando: *"Travamento de Driver de Comunicação"*.
 ```
