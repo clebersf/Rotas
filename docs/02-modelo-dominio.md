@@ -110,8 +110,7 @@ Chamamos isso de Fluent API. Veja um exemplo:
 protected override void OnModelCreating(DbModelBuilder modelBuilder)
 {
     // Diz ao EF: "Toda esteira (Conveyor) OBRIGATORIAMENTE precisa de um Location"
-    modelBuilder.Entity<Conveyor>().HasRequired(e => e.Location);
-    
+    modelBuilder.Entity<Conveyor>().HasRequired(e => e.Location);    
     // Diz ao EF: "Um Location pode estar dentro de várias Sequências de Grafo. 
     // Mas se deletar o Location, NÃO delete a Sequência junto (WillCascadeOnDelete = false)"
     modelBuilder.Entity<Location>()
