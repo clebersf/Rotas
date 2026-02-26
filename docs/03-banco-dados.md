@@ -77,6 +77,174 @@ O sistema possui rotinas para avisar os operadores físicos (que estão dentro d
   * **O que faz:** Atualiza os painéis (IHM/Displays) de Carregadores de Navios (CN), Empilhadeiras (EP) e Recuperadoras (RC).
   * **Como funciona no código:** Faz um `UPDATE` na tabela de tags de escrita (`rTagWrite`) enviando o nome da rota (Ex: *"Rota Origem 1 para Píer 2"*) para que o operador da máquina saiba qual material está chegando na esteira dele.
 
+## 3.5 Diagrama de Entidade-Relacionamento (ERD)
+
+O diagrama abaixo ilustra a estrutura física do banco de dados gerado pelo Entity Framework (Code-First). 
+
+A modelagem é fortemente baseada no conceito de herança através da entidade **`Location`** (que atua como tabela central). Observe que equipamentos (como `Conveyor`, `Tripper`, `Plc`) compartilham suas chaves primárias (PK) com o ID da tabela `Location` (FK), formando relações 1-para-1 rigorosas.
+
+```mermaid
+erDiagram
+    %% ==========================================
+    %% BLOCO CENTRAL: LOCATION E HIERARQUIA
+    %% ==========================================
+    Location {
+        bigint Id PK
+        bigint ParentId FK "Auto-referência (Hierarquia)"
+        bigint TypeId FK
+        varchar Name
+        nvarchar Alias
+    }
+    
+    Type {
+        bigint Id PK
+        nvarchar Name
+        nvarchar Description
+    }
+
+    Location ||--o{ Location : "ParentId (Nó Pai/Filho)"
+    Type ||--o{ Location : "Classifica o Location"
+
+    %% ==========================================
+    %% BLOCO: ESPECIALIZAÇÕES FÍSICAS (1:1 com Location)
+    %% ==========================================
+    Conveyor { bigint Id PK,FK }
+    Tripper { bigint Id PK,FK }
+    Feeder { bigint Id PK,FK }
+    Damper { bigint Id PK,FK }
+    Reversal { bigint Id PK,FK }
+    Origin { bigint Id PK,FK }
+    Destination { bigint Id PK,FK }
+    Plc { bigint Id PK,FK }
+    Berth { bigint Id PK,FK }
+    Compartment { bigint Id PK,FK }
+
+    Location ||--|| Conveyor : "é um"
+    Location ||--|| Tripper : "é um"
+    Location ||--|| Feeder : "é um"
+    Location ||--|| Damper : "é um"
+    Location ||--|| Reversal : "é um"
+    Location ||--|| Origin : "é um"
+    Location ||--|| Destination : "é um"
+    Location ||--|| Plc : "é um"
+    Location ||--|| Berth : "é um"
+    Location ||--|| Compartment : "é um"
+
+    %% ==========================================
+    %% BLOCO: ROTEAMENTO (Grafos e Sequências)
+    %% ==========================================
+    RouteGraph {
+        bigint Id PK
+        nvarchar Route
+    }
+    
+    rRouteGraphSequence {
+        bigint Id PK
+        int Order
+        bigint LocationId FK "Aresta/Nó do Caminho"
+        bigint RouteGraphId FK
+    }
+
+    OxD {
+        bigint Id PK,FK
+        bigint OriginId FK
+        bigint DestinationId FK
+    }
+
+    rRouteOxD {
+        bigint Id PK
+        bigint OxDId FK
+        bigint LocationId FK
+    }
+
+    Location ||--o{ rRouteGraphSequence : "Faz parte de"
+    RouteGraph ||--o{ rRouteGraphSequence : "Possui Passos"
+    Location ||--|| OxD : "é um"
+    OxD ||--o{ rRouteOxD : "Mapeia Rotas"
+
+    %% ==========================================
+    %% BLOCO: GESTÃO DE ESTADO (Fila e Ativas)
+    %% ==========================================
+    rRouteQueue {
+        bigint Id PK,FK "Ref. à Rota"
+        datetime dh
+    }
+    
+    rRouteActive {
+        bigint Id PK,FK "Ref. à Rota"
+        datetime dh
+    }
+    
+    rRouteReplace {
+        bigint Id PK,FK "Nova Rota"
+        bigint LocationId FK "Rota Substituída"
+        datetime dh
+    }
+
+    Location ||--|| rRouteQueue : "Está na Fila"
+    Location ||--|| rRouteActive : "Está Operando"
+    Location ||--|| rRouteReplace : "Substitui"
+
+    %% ==========================================
+    %% BLOCO: AUTOMAÇÃO (OPC DA / CLP)
+    %% ==========================================
+    Tag {
+        bigint Id PK
+        bigint PlcId FK
+        nvarchar Name
+    }
+
+    rInstrumentMeasure {
+        bigint Id PK,FK "Ref. ao Instrumento (Location)"
+        nvarchar Value
+        datetime dh
+        datetime LastDh
+        bigint TagId FK
+    }
+
+    rTagWrite {
+        bigint Id PK,FK
+        bit Write
+        nvarchar Value
+    }
+
+    Plc ||--o{ Tag : "Possui Tags"
+    Tag ||--o{ rInstrumentMeasure : "Lê do PLC"
+    Location ||--|| rInstrumentMeasure : "Possui Valor Lido"
+    Tag ||--|| rTagWrite : "Escreve no PLC"
+
+    %% ==========================================
+    %% BLOCO: PRODUÇÃO E RATEIO
+    %% ==========================================
+    Production {
+        uniqueidentifier Id PK
+        datetime dhi
+        datetime dhf
+        bit Final
+        bit Active
+    }
+
+    rProductionRoute {
+        uniqueidentifier Id PK
+        uniqueidentifier ProductionId FK
+        bigint RouteId FK
+        float Load
+        int NWagon
+        float InitialLoad
+        int InitialNWagon
+    }
+
+    rProductionStock {
+        uniqueidentifier Id PK,FK
+        float Load
+        float InitialLoad
+    }
+
+    Production ||--o{ rProductionRoute : "Gera Histórico (Origem)"
+    Production ||--|| rProductionStock : "Gera Estoque (Destino)"
+    Location ||--o{ rProductionRoute : "Transportou"
+
 * **`vw_Tag_Media_Driver_Optimized` e `sp_Tag_Calc_Media_Driver`**
   * **O que faz:** É o "médico" do driver de comunicação OPC. Ele monitora se a leitura do PLC travou.
   * **Como funciona no código:** O código calcula o tempo entre a última leitura (`LastDh`) e o momento atual. Se a média de atraso passar de 7 segundos ou o dado for mais velho que 60 segundos, a View classifica o status como `'Bad'`. A *Stored Procedure* lê isso e, se achar um `'Bad'`, insere um alarme automático na tabela de `Log` avisando: *"Travamento de Driver de Comunicação"*.
+```
