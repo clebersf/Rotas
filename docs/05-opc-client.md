@@ -8,30 +8,31 @@ Para contornar a notória instabilidade do protocolo COM da Microsoft em .NET, a
 
 ```mermaid
 graph TD
-    subgraph OPC Server (Planta)
+    subgraph S1 [OPC Server - Planta]
         PLC[(Memória do PLC)]
     end
 
-    subgraph Windows Service
-        STA[Thread STA \n OPC COM Interop]
+    subgraph S2 [Windows Service - OpcDaPlcRunner]
+        STA[Thread STA <br/> OPC COM Interop]
         Q[(ConcurrentQueue)]
-        TaskFlush[[Task FlushMeasures \n 300ms]]
-        TaskWrite[[Task PollWrites \n 500ms]]
+        TaskFlush[[Task FlushMeasures <br/> 300ms]]
+        TaskWrite[[Task PollWrites <br/> 500ms]]
         
-        STA -- OnDataChange --> Q
-        Q -- Dequeue Batch --> TaskFlush
+        STA -->|OnDataChange| Q
+        Q -->|Dequeue Batch| TaskFlush
     end
 
-    subgraph SQL Server
-        DB_MEASURE[(rInstrumentMeasure)]
-        DB_WRITE[(rTagWrite)]
+    subgraph S3 [SQL Server - Entity Framework]
+        DB_MEASURE[(Tabela rInstrumentMeasure)]
+        DB_WRITE[(Tabela rTagWrite)]
     end
 
-    PLC -- Subscribe --> STA
-    TaskFlush -- EF SaveChanges() --> DB_MEASURE
-    DB_WRITE -- Polling --> TaskWrite
-    TaskWrite -- SyncWrite --> STA
-    STA -- Grava Valor --> PLC
+    PLC -->|Subscribe| STA
+    TaskFlush -->|EF SaveChanges| DB_MEASURE
+    
+    DB_WRITE -->|Polling| TaskWrite
+    TaskWrite -->|SyncWrite| STA
+    STA -->|Grava Valor| PLC
 ```
 ## 5.2 Fluxo de Leitura (OnDataChange)
 O sistema não faz polling de leitura, para não estrangular a rede industrial. Quando um bit muda na planta, o evento Group_DataChange joga o valor e o timestamp numa fila thread-safe. A cada 300ms, a Task FlushMeasuresLoopAsync esvazia a fila e aplica um update massivo no banco (Tabela rInstrumentMeasure).
