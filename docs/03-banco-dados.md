@@ -266,8 +266,5 @@ O quadro abaixo descreve a função principal das tabelas mapeadas no Diagrama E
 | **Produção e Rateio** | `Production` | Evento principal que encapsula uma operação de transferência de material no porto. |
 | **Produção e Rateio** | `rProductionRoute` | O acompanhamento da rota. Diz que o Virador X virou Y vagões (`NWagon`) e enviou Z toneladas (`Load`) em determinado período. |
 | **Produção e Rateio** | `rProductionStock` | O acompanhamento do destino. Controla a matemática de quanto material efetivamente chegou nas pilhas de estocagem. |
-    Production ||--o{ rProductionRoute : "Gera Historico"
-    Production ||--|| rProductionStock : "Gera Estoque"
-    Location ||--o{ rProductionRoute : "Transportou"
 
 ```
