@@ -36,6 +36,7 @@ Para o motor de busca de rotas (matemática de grafos), uma esteira ou um navio 
 ## 2.2 Diagrama de Classes Core (C#)
 O diagrama abaixo ilustra como as classes C# do projeto Vale.Tops.Domain estão conectadas na memória da aplicação (refletindo o diagrama do banco de dados).
 
+```mermaid
 classDiagram
     direction TB
 
@@ -100,6 +101,7 @@ classDiagram
     Tag "1" *-- "0..*" rInstrumentMeasure : Lê
     Location "1" *-- "0..1" rInstrumentMeasure : Recebe Valor
     Tag "1" *-- "0..1" rTagWrite : Escreve
+```
 
 ## 2.3. O Contexto do Entity Framework (O "Gerente" do Banco)
 O Entity Framework precisa de uma classe que atue como o "Gerente" da conexão. No projeto Infrastructure, essa classe é a WriteReadContext (que herda de DbContext).
