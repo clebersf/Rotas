@@ -106,7 +106,7 @@ O Entity Framework precisa de uma classe que atue como o "Gerente" da conexão. 
 Como ele cria as tabelas? (Fluent API)
 Dentro do WriteReadContext, existe um método especial chamado OnModelCreating. É lá que configuramos regras que as Data Annotations (os colchetes nas classes) não dão conta de fazer.
 Chamamos isso de Fluent API. Veja um exemplo:
-
+```csharp
 protected override void OnModelCreating(DbModelBuilder modelBuilder)
 {
     // Diz ao EF: "Toda esteira (Conveyor) OBRIGATORIAMENTE precisa de um Location"
@@ -119,7 +119,7 @@ protected override void OnModelCreating(DbModelBuilder modelBuilder)
         .HasForeignKey(e => e.LocationId)
         .WillCascadeOnDelete(false);
 }
-
+```
 ## 2.4. Acesso aos Dados: Repository Pattern e CQRS
 Em vez de as telas do sistema "falarem" diretamente com o banco de dados (o que viraria uma bagunça), o projeto usa o Padrão de Repositório (Repository Pattern). Pense no Repositório como um garçom: você pede a ele (em C#) para buscar uma Rota, e ele vai até a cozinha (banco de dados), pega a informação e te entrega.
 Além disso, o sistema divide os garçons em dois tipos, usando o conceito de CQRS (Command Query Responsibility Segregation):
@@ -131,18 +131,18 @@ Usados APENAS para buscar dados e ler Views do banco. Como ele sabe que não vai
 Se uma tela (WPF) precisar buscar a lista de Correias, ela não instancia o banco de dados diretamente (new WriteReadContext()). Em vez disso, ela pede a lista para uma Interface (um "contrato" C# chamado IConveyorWriteRead).
 💡 Por que usar Interfaces? Se amanhã a empresa decidir trocar o SQL Server pela nuvem, basta criar uma classe nova que assine o contrato da Interface. As telas do WPF não precisarão ser alteradas!
 Para ligar a Interface com a Classe real, usamos o Autofac (um sistema de Injeção de Dependência). No arquivo RepositoryModule.cs, ensinamos o programa:
-
+```csharp
 // "Autofac, sempre que alguém pedir uma Interface genérica (IWriteRead<T>), 
 // entregue a classe concreta (WriteRead<T>)!"
 builder.RegisterGeneric(typeof(WriteRead<>))
        .As(typeof(IWriteRead<>))
        .InstancePerLifetimeScope();
-
+```
 ## 2.6. Como funciona a consulta no dia a dia? (LINQ)
 Graças a toda essa arquitetura (EF + Repositórios + Injeção de Dependência), o programador não precisa escrever consultas em SQL duro (SELECT * FROM...) no meio do código da tela. Ele usa o LINQ (Language Integrated Query), que permite fazer buscas usando a própria linguagem C#.
 Exemplo Prático (Tela Add.xaml.cs):
 Buscando todas as rotas ativas que possuem Píer 1 no nome e listando na tela:
-
+```csharp
 // 1. O Autofac já entregou a instância do repositório pronta para uso:
 // private IrRouteActiveWriteRead rRouteActiveWriteRead;
 
@@ -154,5 +154,5 @@ var rotasAtivas = (from act in this.rRouteActiveWriteRead.All() // Pega tudo da 
                        Id = loc.Id,
                        Completa = loc.Name
                    }).ToList();
-
+```
 O Entity Framework traduzirá esse bloco LINQ silenciosamente em uma query SQL altamente otimizada e executará no SQL Server.                   
