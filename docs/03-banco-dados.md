@@ -240,6 +240,32 @@ erDiagram
         float InitialLoad
     }
 
+```
+
+## 3.6 Dicionário de Dados (Core do Sistema)
+
+O quadro abaixo descreve a função principal das tabelas mapeadas no Diagrama Entidade-Relacionamento acima, divididas por seus blocos lógicos operacionais.
+
+| Bloco Lógico | Tabela | Propósito no Sistema |
+| :--- | :--- | :--- |
+| **Hierarquia Base** | `Location` | Tabela raiz de todo o sistema. Funciona como o "DNA" do porto. Todo maquinário, CLP, e roteiro do sistema é um nó genérico na planta. |
+| **Hierarquia Base** | `Type` | Tabela de domínio que classifica o que um `Location` é fisicamente (ex: 1 = Correia, 2 = CLP, 3 = Pátio). |
+| **Equipamentos (1:1)** | `Conveyor` | Especialização de `Location` que representa uma Correia Transportadora. (Possui tabelas filhas auxiliares como Velocidade, Comprimento, Consumo). |
+| **Equipamentos (1:1)** | `Tripper`, `Damper`, `Feeder`, `Reversal` | Especializações que representam mecanismos físicos de desvio de fluxo de minério entre as esteiras. |
+| **Equipamentos (1:1)** | `Origin` / `Destination` | Representam equipamentos que iniciam uma rota (ex: Virador de Vagões) ou finalizam uma rota (ex: Empilhadeira, Navio). |
+| **Roteamento Topológico** | `OxD` e `rRouteOxD` | Mapeia as matrizes de roteamento. Define que é possível criar uma rota ligando uma *Origem X* a um *Destino Y*. |
+| **Roteamento Topológico** | `RouteGraph` | Representa o "Nome/Cabeçalho" de uma rota de minério montada e disponível no sistema. |
+| **Roteamento Topológico** | `rRouteGraphSequence` | É o "GPS" da rota. Mapeia o passo-a-passo (coluna `Order`) informando por quais `Locations` o minério deve passar para ir do início ao fim. |
+| **Gestão de Estado** | `rRouteQueue` | Fila de Espera. Armazena as rotas que o operador selecionou, mas que ainda aguardam o "Iniciar". |
+| **Gestão de Estado** | `rRouteActive` | Planta Ativa. Armazena apenas as rotas que estão rodando no momento. |
+| **Gestão de Estado** | `rRouteReplace` | Fila especial de Hot-Swap. Armazena rotas que entrarão no lugar de uma rota ativa sem desligar o parque. |
+| **Automação (OPC)** | `Plc` | Representa um Controlador Lógico Programável físico na rede do porto. |
+| **Automação (OPC)** | `Tag` | Endereço de memória dentro do PLC (ex: *RSVEqp_TR.Permissao*). |
+| **Automação (OPC)** | `rInstrumentMeasure` | É a tabela de **Leitura**. O *Windows Service* atualiza esta tabela continuamente (ms) refletindo o status real da planta (ex: posição do damper, peso da balança). |
+| **Automação (OPC)** | `rTagWrite` | É a tabela de **Escrita**. O SQL Server insere comandos de '1' ou '0' aqui. O *Windows Service* escuta essa tabela e atua no CLP acionando o equipamento. |
+| **Produção e Rateio** | `Production` | Evento principal que encapsula uma operação de transferência de material no porto. |
+| **Produção e Rateio** | `rProductionRoute` | O acompanhamento da rota. Diz que o Virador X virou Y vagões (`NWagon`) e enviou Z toneladas (`Load`) em determinado período. |
+| **Produção e Rateio** | `rProductionStock` | O acompanhamento do destino. Controla a matemática de quanto material efetivamente chegou nas pilhas de estocagem. |
     Production ||--o{ rProductionRoute : "Gera Historico"
     Production ||--|| rProductionStock : "Gera Estoque"
     Location ||--o{ rProductionRoute : "Transportou"
