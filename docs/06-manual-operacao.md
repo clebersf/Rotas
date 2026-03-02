@@ -11,7 +11,6 @@ Este manual descreve o passo a passo de utilização das três abas principais d
 A tela principal do sistema é dividida em abas de navegação no topo e filtros rápidos logo abaixo.
 
 > ![Tela Principal](../docs/assets/tela-principal.png)
-> `![Tela Principal](../assets/tela-principal.png)`
 
 * **Filtros de Modalidade:** As caixas de seleção `Descarga` e `Embarque` permitem ao operador limpar a tela e focar apenas nas rotas do processo desejado.
 * **Barra de Progresso (Inferior):** Sempre que o sistema estiver consultando o banco de dados (buscando milhares de rotas), a barra inferior indicará que o sistema está processando a informação.
@@ -30,8 +29,7 @@ A **Fila de Rotas** é a "sala de espera". Colocar uma rota nesta aba **não lig
 5. **Busca Rápida:** Digite o nome do equipamento de origem no campo **Filtro** (ex: `VV01` para Virador de Vagões 1) e pressione a barra de espaço para adicionar mais filtros (ex: `VV01 F04`).
 6. Selecione a rota desejada na tabela e clique no botão **`Adicionar`**.
 
-> 📸 ../assets/tela-adicionar.png
-> `![Tela de Adicionar](../docs/assets/tela-adicionar.png)`
+> ![Tela Adicionar](../docs/assets/tela-adicionar.png)
 
 ### 6.2.2 Validação de Segurança (Consistência)
 Antes de uma rota ser iniciada, a coluna **Consistente** (na Fila de Rotas) mostrará `Sim` ou `Não`. 
@@ -45,8 +43,7 @@ Antes de uma rota ser iniciada, a coluna **Consistente** (na Fila de Rotas) most
    * *Exemplo: A "Cabeça Móvel A2B" deveria estar virada para a correia "H14", mas está indefinida. Ou a "Posição do Tripper" está errada.*
 4. O operador de campo deve corrigir a posição da máquina física antes de o sistema permitir a ativação.
 
-> 📸 ../assets/tela-consistencia.png
-> `![Tela de Consistência](../docs/assets/tela-consistencia.png)`
+> ![Tela Consistência](../docs/assets/tela-consistencia.png)
 
 ---
 
@@ -78,8 +75,7 @@ Este é um dos recursos mais poderosos do sistema. Ele evita que o porto seja to
 6. **O Pulo do Gato:** Clique em **`Finalizar/Substituir`** na rota original.
 7. O sistema **não desligará** as esteiras em comum. Ele apenas desligará o maquinário do `VV01` e ligará o maquinário exclusivo do `VV02`, economizando tempo e energia elétrica.
 
-> 📸 ../assets/tela-substituicao.png 
-> `![Tela de Substituição](../docs/assets/tela-substituicao.png)`
+> ![Tela Substituição](../docs/assets/tela-substituicao.png)
 
 ---
 
@@ -91,5 +87,4 @@ A aba **Ações Recentes** é a caixa preta do sistema (Trilha de Auditoria).
 
 Isso garante total transparência sobre a operação da planta, ajudando as equipes de engenharia e manutenção a entenderem o histórico de eventos durante a investigação de paradas operacionais.
 
-> 📸 *(Insira aqui o Print da aba Ações Recentes mostrando os logs)*  
-> `![Tela de Logs](../assets/tela-logs.png)`
+> ![Tela Logs](../docs/assets/tela-logs.png)
