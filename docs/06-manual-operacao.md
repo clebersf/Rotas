@@ -10,7 +10,7 @@ Este manual descreve o passo a passo de utilização das três abas principais d
 
 A tela principal do sistema é dividida em abas de navegação no topo e filtros rápidos logo abaixo.
 
-> 📸 [Tela Principal](../docs/assets/tela-principal.png)
+> ![Tela Principal](../docs/assets/tela-principal.png)
 > `![Tela Principal](../assets/tela-principal.png)`
 
 * **Filtros de Modalidade:** As caixas de seleção `Descarga` e `Embarque` permitem ao operador limpar a tela e focar apenas nas rotas do processo desejado.
