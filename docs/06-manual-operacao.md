@@ -10,7 +10,7 @@ Este manual descreve o passo a passo de utilização das três abas principais d
 
 A tela principal do sistema é dividida em abas de navegação no topo e filtros rápidos logo abaixo.
 
-> 📸 *(Insira aqui o Print da Tela Inicial inteira)*  
+> 📸 [Tela Principal](../assets/tela-principal.png)
 > `![Tela Principal](../assets/tela-principal.png)`
 
 * **Filtros de Modalidade:** As caixas de seleção `Descarga` e `Embarque` permitem ao operador limpar a tela e focar apenas nas rotas do processo desejado.
@@ -30,7 +30,7 @@ A **Fila de Rotas** é a "sala de espera". Colocar uma rota nesta aba **não lig
 5. **Busca Rápida:** Digite o nome do equipamento de origem no campo **Filtro** (ex: `VV01` para Virador de Vagões 1) e pressione a barra de espaço para adicionar mais filtros (ex: `VV01 F04`).
 6. Selecione a rota desejada na tabela e clique no botão **`Adicionar`**.
 
-> 📸 *(Insira aqui o Print da tela "Acionar rota à fila" com um filtro digitado)*  
+> 📸 ../assets/tela-adicionar.png
 > `![Tela de Adicionar](../assets/tela-adicionar.png)`
 
 ### 6.2.2 Validação de Segurança (Consistência)
@@ -45,7 +45,7 @@ Antes de uma rota ser iniciada, a coluna **Consistente** (na Fila de Rotas) most
    * *Exemplo: A "Cabeça Móvel A2B" deveria estar virada para a correia "H14", mas está indefinida. Ou a "Posição do Tripper" está errada.*
 4. O operador de campo deve corrigir a posição da máquina física antes de o sistema permitir a ativação.
 
-> 📸 *(Insira aqui o Print da tela "Lista de inconsistência da rota")*  
+> 📸 ../assets/tela-consistencia.png
 > `![Tela de Consistência](../assets/tela-consistencia.png)`
 
 ---
@@ -78,7 +78,7 @@ Este é um dos recursos mais poderosos do sistema. Ele evita que o porto seja to
 6. **O Pulo do Gato:** Clique em **`Finalizar/Substituir`** na rota original.
 7. O sistema **não desligará** as esteiras em comum. Ele apenas desligará o maquinário do `VV01` e ligará o maquinário exclusivo do `VV02`, economizando tempo e energia elétrica.
 
-> 📸 *(Insira aqui o Print da aba Rotas Ativas com a coluna "Substituta" preenchida)*  
+> 📸 ../assets/tela-substituicao.png 
 > `![Tela de Substituição](../assets/tela-substituicao.png)`
 
 ---
