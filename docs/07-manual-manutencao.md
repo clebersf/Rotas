@@ -23,17 +23,7 @@ Se uma máquina física mudou de posição no campo, mas o Sistema Rotas não re
 ### 7.1.2 Script Rápido para Diagnóstico (Health Check)
 Para facilitar, você pode rodar a *Query* abaixo para listar os Drivers OPC e identificar rapidamente se algum deles parou de comunicar com o banco:
 
-```sql
-SELECT Id, 
-       Name, 
-       ValueDateTime AS TimeAccumulated, 
-       ValueInt AS CycleCount,
-       CASE 
-           WHEN DATEDIFF(second, LastDh, GETDATE()) > 60 THEN 'Bad' 
-           ELSE 'Good' 
-       END AS Status
-FROM vw_Tag_Media_Driver
-```
+
 Se a coluna **Status** retornar `'Bad'`, o Driver daquele equipamento específico precisa ser reiniciado.
 
 > 📸 *(Insira aqui o Print da Query rodando no SSMS mostrando a coluna Good/Bad)*  
