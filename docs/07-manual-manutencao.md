@@ -1,4 +1,4 @@
-```markdown
+
 
 # 7. Manual de Manutenção e Diagnóstico (Troubleshooting)
 
@@ -103,11 +103,4 @@ Se um CLP novo foi adicionado à planta, você precisará registrar o serviço n
 
 > 📸 *(Insira aqui o Print da tela preta do CMD mostrando o InstallUtil executando com sucesso)*  
 > `![Instalação via CMD](../assets/cmd-installutil.png)`
-```
 
-***
-
-### 💡 Como proceder com as imagens:
-1. Faça os recortes (prints) do documento PDF original da TSA que você acabou de enviar.
-2. Salve essas imagens na pasta `/docs/assets/` do seu repositório.
-3. Certifique-se de que o nome dos arquivos que você salvar (ex: `tabela-rinstrumentmeasure.png`) bate exatamente com o nome que deixei dentro dos parênteses `()` na tag de markdown `![Nome](../assets/nome-do-arquivo.png)`.
