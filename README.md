@@ -24,7 +24,7 @@ A documentação detalhada da solução foi dividida por módulos para facilitar
 3. [Motor de Segurança e Banco de Dados](./docs/03-banco-dados.md)
 4. [Camada de Apresentação (WPF UI)](./docs/04-interface-wpf.md)
 5. [Integração Industrial (OpcClientService)](./docs/05-opc-client.md)
-6. [Manual de Operaçãol (OpcClientService)](./docs/06-manual-operacao.md)
+6. [Manual de Operação (OpcClientService)](./docs/06-manual-operacao.md)
 7. [Manual de Manutenção (OpcClientService)](./docs/07-manual-manutencao.md)
 ---
 *Projeto baseado na modelagem matemática e heurística da dissertação de Cleber Silva Ferreira (2021).*
