@@ -61,3 +61,31 @@ Uma vez autorizada, a rota não liga toda de uma vez. O Sistema Rotas envia coma
 
 ### 3. Integração com Faturamento
 O sistema realiza cálculos baseados nas leituras de balanças instaladas debaixo das esteiras. Ele apura exatamente quantas toneladas saíram da Origem e chegaram no Destino, enviando essa "nota fiscal" de produção para os sistemas corporativos de alto nível.
+
+## 1.4 Arquitetura e Topologia do Sistema
+
+O Sistema Rotas não é um aplicativo isolado rodando em um único computador. Por se tratar de uma operação crítica (onde uma falha de comunicação pode parar o porto), ele foi desenhado com uma arquitetura distribuída, separando as responsabilidades entre o Centro de Controle, os Servidores e o Chão de Fábrica.
+
+> 📸 *(Topologia física e lógica da rede de automação do porto)*
+> ![Arquitetura do Sistema](../assets/arquitetura-sistema.png)
+
+Abaixo, explicamos o papel de cada bloco representado no diagrama acima:
+
+### 🖥️ 1. CCO (Centro de Controle Operacional)
+* **O que é:** É a sala onde os operadores ficam posicionados acompanhando os monitores. 
+* **O Componente (5 App Cliente):** Representa as 5 máquinas físicas rodando a interface gráfica (WPF) do Sistema Rotas. Esses aplicativos clientes se conectam apenas ao **Servidor 1** para consultar o Banco de Dados. Nenhum cliente se comunica diretamente com a planta, garantindo segurança contra comandos acidentais e ataques à rede industrial.
+
+### 🗄️ 2. Servidor 1 (O "Cérebro" e o Banco de Dados)
+Este servidor é a espinha dorsal do sistema. Ele abriga dois componentes críticos:
+* **BD (Banco de Dados SQL Server):** É o cérebro lógico. Ele recebe os cliques dos 5 operadores do CCO, roda as validações de segurança (*Views/Stored Procedures*) e guarda todo o histórico de produção. 
+* **12 Drivers Clientes OPC:** São 12 *Windows Services* independentes rodando no background deste servidor. Cada serviço é "dono" de um PLC específico.
+* **RSLinx (OPC Server):** É um software de prateleira da Rockwell. Ele funciona como um "tradutor". Os 12 Drivers enviam comandos lógicos para o RSLinx, e o RSLinx traduz isso para a linguagem elétrica que a rede de automação entende.
+
+### 🛡️ 3. Servidor 2 (O Servidor de Apoio)
+* **O que é:** Para aliviar a carga de processamento do Servidor 1, existe um segundo servidor de apoio.
+* **O Componente:** Ele não possui um Banco de Dados próprio (ele aponta para o BD do Servidor 1). Sua única função é abrigar mais **10 Drivers Clientes OPC** e seu próprio **RSLinx**.
+* **Vantagem:** Se o Servidor 2 reiniciar, o porto não para completamente. Apenas as 10 máquinas controladas por ele ficarão em modo de segurança até o sistema voltar, enquanto as outras 12 (do Servidor 1) continuarão operando normalmente.
+
+### 🏭 4. Planta (O Chão de Fábrica)
+* **O que é:** O ambiente físico (ao ar livre), onde estão as correias, os navios e os motores.
+* **O Componente (22 PLCs):** PLC (*Programmable Logic Controller*) é o computador industrial de carcaça reforçada que fica dentro dos painéis elétricos ao lado das esteiras. No diagrama, vemos **12 PLCs** conectados ao Servidor 1 e **10 PLCs** conectados ao Servidor 2. Eles são a "ponta da linha": recebem o comando do RSLinx e aplicam a tensão (voltagem) nos cabos que ligam os motores gigantes.
