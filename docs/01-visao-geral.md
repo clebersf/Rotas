@@ -67,7 +67,7 @@ O sistema realiza cálculos baseados nas leituras de balanças instaladas debaix
 O Sistema Rotas não é um aplicativo isolado rodando em um único computador. Por se tratar de uma operação crítica (onde uma falha de comunicação pode parar o porto), ele foi desenhado com uma arquitetura distribuída, separando as responsabilidades entre o Centro de Controle, os Servidores e o Chão de Fábrica.
 
 > 📸 *(Topologia física e lógica da rede de automação do porto)*
-> ![Arquitetura do Sistema](../assets/arquitetura-sistema.png)
+> ![Arquitetura do Sistema](../docs/assets/arquitetura-sistema.png)
 
 Abaixo, explicamos o papel de cada bloco representado no diagrama acima:
 
