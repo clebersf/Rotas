@@ -17,7 +17,7 @@ Ao chegar, esse material não pode simplesmente ser jogado no chão. Ele precisa
 
 Para movimentar milhões de toneladas de minério nessas três modalidades, o porto não utiliza caminhões, mas sim uma intrincada malha de **Correias Transportadoras** (esteiras de borracha motorizadas). 
 
-A combinação lógica que conecta uma máquina inicial, passa por várias esteiras e chega a uma máquina final é o que chamamos de **Rota de Minério**. Devido ao tamanho do porto, existem mais de 5.000 rotas possíveis.
+A combinação lógica que conecta uma máquina inicial, passa por várias esteiras e chega a uma máquina final é o que chamamos de **Rota de Minério**. Devido ao tamanho do porto, existem mais de 4.000 rotas possíveis.
 
 ---
 
