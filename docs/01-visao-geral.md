@@ -56,7 +56,7 @@ Antes do sistema enviar o sinal elétrico para ligar os motores, o banco de dado
 * *Se qualquer máquina estiver na posição errada, a Rota fica com status "Inconsistente" e o botão de acionamento é bloqueado.*
 
 ### 2. Automação de Inicialização e "Hot-Swap"
-Uma vez autorizada, a rota não liga toda de uma vez. O Sistema Rotas envia comandos para ligar os equipamentos de **trás para frente** (primeiro o Destino, depois o Caminho, por último a Origem). Assim, quando o minério cair, a esteira de baixo já estará em movimento.
+Uma vez autorizada, a rota não liga toda de uma vez. O Sistema Rotas envia comandos para ligar os equipamentos e o sistema de automação do porto aciona os equipamentos da rota de **trás para frente** (primeiro o Destino, depois o Caminho, por último a Origem). Assim, quando o minério cair, a esteira de baixo já estará em movimento.
 * **Rotas Substitutas (Hot-Swap):** O sistema possui inteligência para evitar o desligamento total do porto. Se um trem terminar de descarregar no Virador 1, e o próximo trem estiver no Virador 2, o sistema desliga apenas a origem antiga e liga a nova, mantendo todas as correias transportadoras em comum rodando sem interrupção, economizando tempo e energia elétrica.
 
 ### 3. Integração com Faturamento
